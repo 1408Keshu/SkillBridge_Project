@@ -23,6 +23,16 @@ const Dashboard = () => {
   ]);
   const [aiInput, setAiInput] = useState('');
   const [showInterviewAnswer, setShowInterviewAnswer] = useState(false);
+  const [completedSteps, setCompletedSteps] = useState(() => {
+    // Persist across reloads
+    const saved = localStorage.getItem('completedRoadmapSteps');
+    return saved ? new Set(JSON.parse(saved)) : new Set();
+  });
+
+  // Save completedSteps to localStorage when it changes
+  useEffect(() => {
+    localStorage.setItem('completedRoadmapSteps', JSON.stringify(Array.from(completedSteps)));
+  }, [completedSteps]);
 
   // Skill and Career Path Data
   const skills2025 = [
@@ -190,7 +200,7 @@ const Dashboard = () => {
     setResources(careerResources[career] || []);
   };
 
-  const progressPercentage = userSkills.length === 0 ? 0 : Math.round((userSkills.length / Math.max(skills2025.length, 1)) * 100);
+  const progressPercentage = completedSteps.size === 0 ? 0 : Math.round((completedSteps.size / Math.max(skills2025.length, 1)) * 100);
 
   const handleStepComplete = (skillName) => {
     setUserSkills(prev => [...prev, skillName]);
@@ -205,6 +215,7 @@ const Dashboard = () => {
     setUserName('John Doe');
     setCareerPath('Full-Stack Developer');
     setUserSkills([]);
+    setCompletedSteps(new Set()); // Reset completed steps
     generateResources('Full-Stack Developer');
   };
 
@@ -368,8 +379,8 @@ const Dashboard = () => {
                 </div>
                 <div className="progress-stats">
                   <div className="progress-stat"><span>{progressPercentage}%</span><br/><span>Completed</span></div>
-                  <div className="progress-stat"><span>{userSkills.length}</span><br/><span>Skills Learned</span></div>
-                  <div className="progress-stat"><span>{Math.min(userSkills.length, 3)}</span><br/><span>Projects Done</span></div>
+                  <div className="progress-stat"><span>{completedSteps.size}</span><br/><span>Skills Learned</span></div>
+                  <div className="progress-stat"><span>{Math.min(completedSteps.size, 3)}</span><br/><span>Projects Done</span></div>
                 </div>
               </div>
 
@@ -389,9 +400,9 @@ const Dashboard = () => {
                   <h3 className="widget-title">Time Investment</h3>
                   <div className="widget-actions"><i className="fas fa-ellipsis-h"></i></div>
                 </div>
-                <p>You've spent {userSkills.length * 8} hours learning this month. Target: 50 hours.</p>
+                <p>You've spent {completedSteps.size * 8} hours learning this month. Target: 50 hours.</p>
                 <div className="progress-bar" style={{marginTop: '15px'}}>
-                  <div className="progress-fill" style={{ width: `${Math.min((userSkills.length * 8 / 50) * 100, 100)}%`, background: 'var(--secondary)' }}></div>
+                  <div className="progress-fill" style={{ width: `${Math.min((completedSteps.size * 8 / 50) * 100, 100)}%`, background: 'var(--secondary)' }}></div>
                 </div>
               </div>
             </div>
@@ -452,7 +463,13 @@ const Dashboard = () => {
 
         {/* Feature Pages */}
         {currentPage === 'roadmap' && (
-          <Roadmap />
+          <Roadmap
+            completedSteps={completedSteps}
+            setCompletedSteps={setCompletedSteps}
+            careerPath={careerPath}
+            roadmapSteps={skills2025}
+            handleStepComplete={handleStepComplete}
+          />
         )}
 
         {currentPage === 'resources' && (
@@ -468,10 +485,10 @@ const Dashboard = () => {
         )}
 
         {currentPage === 'progress' && (
-          <Progress 
-            userSkills={userSkills}
+          <Progress
+            completedSteps={completedSteps}
             careerPath={careerPath}
-            roadmapSteps={[]}
+            roadmapSteps={skills2025}
           />
         )}
 
