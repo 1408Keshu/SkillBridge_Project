@@ -1,0 +1,104 @@
+import { useState } from 'react';
+
+const SignupModal = ({ isOpen, onClose, onSwitchToLogin }) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: ''
+  });
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    
+    // Simulate signup process
+    setTimeout(() => {
+      alert('Account created successfully! Please login with your credentials.');
+      setLoading(false);
+      onSwitchToLogin();
+    }, 1000);
+  };
+
+  const handleChange = (e) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  const handleClose = () => {
+    setFormData({ name: '', email: '', password: '' });
+    setLoading(false);
+    onClose();
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="auth-modal active" onClick={handleClose}>
+      <div className="auth-container" onClick={(e) => e.stopPropagation()}>
+        <button className="close-modal" onClick={handleClose}>&times;</button>
+        
+        <div className="auth-header">
+          <h2>Create Account</h2>
+        </div>
+        
+        <form className="auth-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="signupName">Full Name</label>
+            <input
+              type="text"
+              id="signupName"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Your Name"
+              required
+            />
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="signupEmail">Email</label>
+            <input
+              type="email"
+              id="signupEmail"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="you@example.com"
+              required
+            />
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="signupPassword">Password</label>
+            <input
+              type="password"
+              id="signupPassword"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Create a strong password"
+              required
+            />
+          </div>
+          
+          <button 
+            type="submit" 
+            className={`auth-btn ${loading ? 'loading' : ''}`}
+            disabled={loading}
+          >
+            {loading ? 'Creating Account...' : 'Create Account'}
+          </button>
+        </form>
+        
+        <div className="auth-footer">
+          Already have an account? <button onClick={onSwitchToLogin} style={{ background: 'none', border: 'none', color: 'var(--primary)', cursor: 'pointer', textDecoration: 'underline' }}>Log in</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default SignupModal;
