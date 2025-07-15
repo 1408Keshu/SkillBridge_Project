@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 const knowledgeLevels = [
   { value: 'beginner', label: 'Beginner' },
@@ -139,6 +140,94 @@ const Roadmap = ({ completedSteps, setCompletedSteps }) => {
     setLoading(false);
   };
 
+  // PDF Export Handler (programmatic, not screenshot)
+  const handleExportPDF = () => {
+    if (!roadmapSteps.length) return;
+
+    const doc = new jsPDF({
+      orientation: 'portrait',
+      unit: 'pt',
+      format: 'a4'
+    });
+
+    let y = 40;
+
+    // Title
+    doc.setFontSize(22);
+    doc.setTextColor('#7c4dff');
+    doc.text('SkillBridge Roadmap Journey', 40, y);
+    y += 30;
+
+    // User Info
+    doc.setFontSize(14);
+    doc.setTextColor('#222');
+    doc.text(`Goal: ${form.dreamGoal || 'Not set'}`, 40, y);
+    y += 20;
+    doc.text(`Duration: ${form.duration} weeks`, 40, y);
+    y += 20;
+    doc.text(`Knowledge Level: ${form.knowledgeLevel ? knowledgeLevels.find(l => l.value === form.knowledgeLevel)?.label : 'Not set'}`, 40, y);
+    y += 20;
+    doc.text(`Daily Time: ${form.dailyTime} hours/day`, 40, y);
+    y += 30;
+
+    // For each week
+    roadmapSteps.forEach((step, idx) => {
+      doc.setFontSize(16);
+      doc.setTextColor('#7c4dff');
+      doc.text(`Week ${idx + 1}: ${step.name}`, 40, y);
+      y += 22;
+
+      // Topics
+      if (step.mainFocusTopics && step.mainFocusTopics.length) {
+        doc.setFontSize(12);
+        doc.setTextColor('#222');
+        doc.text('Learning Topics:', 50, y);
+        y += 16;
+        step.mainFocusTopics.forEach(topic => {
+          doc.text(`- ${topic}`, 60, y);
+          y += 14;
+        });
+      }
+
+      // Weekly Task
+      if (step.description) {
+        y += 6;
+        doc.setFont(undefined, 'bold');
+        doc.text('Weekly Task:', 50, y);
+        doc.setFont(undefined, 'normal');
+        y += 14;
+        doc.text(step.description, 60, y);
+        y += 18;
+      }
+
+      // Resources
+      if (step.resources && step.resources.length) {
+        y += 6;
+        doc.setFont(undefined, 'bold');
+        doc.text('Resources:', 50, y);
+        doc.setFont(undefined, 'normal');
+        y += 14;
+        step.resources.forEach(res => {
+          if (typeof res === 'object' && res.name && res.url) {
+            doc.textWithLink(`- ${res.name}`, 60, y, { url: res.url });
+          } else if (typeof res === 'string') {
+            doc.text(`- ${res}`, 60, y);
+          }
+          y += 14;
+        });
+      }
+
+      y += 18;
+      // Add new page if near bottom
+      if (y > 750 && idx < roadmapSteps.length - 1) {
+        doc.addPage();
+        y = 40;
+      }
+    });
+
+    doc.save('roadmap-journey.pdf');
+  };
+
   let stepsRender = null;
   try {
     if (roadmapSteps.length > 0) {
@@ -233,24 +322,65 @@ const Roadmap = ({ completedSteps, setCompletedSteps }) => {
     stepsRender = <div style={{ color: 'red', marginTop: 24 }}>An error occurred while rendering the roadmap steps: {err.message}</div>;
   }
 
+  // --- NEW: Roadmap Info Card ---
+  const roadmapInfo = (
+    <div
+      style={{
+        background: 'var(--card-bg)',
+        border: '1px solid var(--border-color)',
+        borderRadius: 12,
+        padding: '20px 24px',
+        marginBottom: 24,
+        boxShadow: '0 2px 8px 0 rgba(124,77,255,0.04)',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 10,
+        maxWidth: 600,
+        margin: '0 auto 24px auto'
+      }}
+    >
+      <div style={{ fontWeight: 700, fontSize: 18, color: 'var(--primary)' }}>
+        <i className="fas fa-bullseye" style={{ marginRight: 8 }}></i>
+        Goal: <span style={{ color: 'var(--text-primary)' }}>{form.dreamGoal || 'Not set'}</span>
+      </div>
+      <div style={{ color: 'var(--text-secondary)', fontSize: 15 }}>
+        <b>Duration:</b> {form.duration} weeks &nbsp; | &nbsp;
+        <b>Knowledge Level:</b> {form.knowledgeLevel ? knowledgeLevels.find(l => l.value === form.knowledgeLevel)?.label : 'Not set'} &nbsp; | &nbsp;
+        <b>Daily Time:</b> {form.dailyTime} hours/day
+      </div>
+    </div>
+  );
+
   return (
     <div className="page active">
       <h1 className="section-title animate-on-scroll">My Roadmap</h1>
       <p className="section-subtitle animate-on-scroll">Your complete AI-powered career roadmap.</p>
+
+      {/* Buttons outside the card */}
+      {!showForm && roadmapSteps.length > 0 && (
+        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 12, maxWidth: 600, margin: '0 auto 16px auto' }}>
+          <button
+            className="step-btn secondary"
+            onClick={handleExportPDF}
+          >
+            <i className="fas fa-download"></i> Save Roadmap
+          </button>
+          <button
+            className="step-btn primary"
+            onClick={() => { setShowForm(true); }}
+          >
+            <i className="fas fa-sync-alt"></i> Regenerate Roadmap
+          </button>
+        </div>
+      )}
+
+      {/* Interactive Info Card */}
+      {!showForm && roadmapSteps.length > 0 && roadmapInfo}
+
       <div className="widget animate-on-scroll" style={{ maxWidth: 600, margin: '0 auto', position: 'relative' }}>
         <div className="widget-header">
           <h3 className="widget-title">Interactive Roadmap Generator</h3>
         </div>
-        {/* Regenerate Roadmap button in top right corner of roadmap section */}
-        {!showForm && roadmapSteps.length > 0 && (
-          <button
-            className="step-btn primary"
-            style={{ position: 'absolute', top: 16, right: 16, zIndex: 10 }}
-            onClick={() => { setShowForm(true); }}
-          >
-            Regenerate Roadmap
-          </button>
-        )}
         {showForm ? (
           <form className="roadmap-form" style={{ display: 'flex', flexDirection: 'column', gap: 18 }} onSubmit={e => { e.preventDefault(); handleGenerate(); }}>
             <label>
@@ -287,12 +417,6 @@ const Roadmap = ({ completedSteps, setCompletedSteps }) => {
             {stepsRender}
             {loading && <div style={{ marginTop: 16 }}>Loading...</div>}
             {renderError && <div style={{ color: 'red', marginTop: 16 }}>A rendering error occurred: {renderError}</div>}
-            {debug && (
-              <details style={{marginTop: 16, color: '#888'}}>
-                <summary>Show Gemini API raw response (debug)</summary>
-                <pre style={{fontSize: 12}}>{JSON.stringify(debug, null, 2)}</pre>
-              </details>
-            )}
           </>
         )}
       </div>
