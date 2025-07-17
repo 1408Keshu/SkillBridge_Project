@@ -8,6 +8,30 @@ import Progress from './Progress';
 import InterviewPrep from './InterviewPrep';
 import Settings from './Settings';
 
+function formatAiResponse(text) {
+  if (!text || text.split(' ').length <= 20) return text;
+
+  // Try to split by newlines first
+  let lines = text.split('\n').map(line => line.trim()).filter(line => line.length > 0);
+
+  // If only one line, try splitting by sentences
+  if (lines.length === 1) {
+    lines = text.split('. ').map(s => s.trim()).filter(Boolean);
+  }
+
+  // If still only one line, return as is
+  if (lines.length === 1) return text;
+
+  // Format as bullet points
+  return (
+    <ul style={{ paddingLeft: '1.2em', margin: 0 }}>
+      {lines.map((line, idx) => (
+        <li key={idx} style={{ marginBottom: 6 }}>{line}</li>
+      ))}
+    </ul>
+  );
+}
+
 const Dashboard = () => {
   const { userEmail, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
@@ -246,22 +270,59 @@ const Dashboard = () => {
     updateProfile(name, skills, path);
   };
 
-  const sendAiMessage = () => {
+  const sendAiMessage = async () => {
     if (aiInput.trim()) {
       setAiMessages(prev => [...prev, { text: aiInput, isUser: true }]);
-      const responses = [
-        "I can help with that! Here are some resources you might find useful...",
-        "Try focusing on your current roadmap step. I can suggest tutorials or exercises!",
-        "Great question! Let me analyze your progress and provide a tailored recommendation.",
-        "Need help with a specific topic? I can provide explanations or practice problems."
-      ];
-      setTimeout(() => {
-        setAiMessages(prev => [...prev, { 
-          text: responses[Math.floor(Math.random() * responses.length)], 
-          isUser: false 
-        }]);
-      }, 1000);
       setAiInput('');
+      setAiMessages(prev => [...prev, { text: "Thinking...", isUser: false, loading: true }]);
+
+      try {
+        const apiKey = import.meta.env.VITE_OPENROUTER_API_KEY;
+        if (!apiKey) {
+          setAiMessages(prev => [
+            ...prev.filter(m => !m.loading),
+            { text: "Error: OpenRouter API key is missing. Please set VITE_OPENROUTER_API_KEY in your .env file.", isUser: false }
+          ]);
+          return;
+        }
+        const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${apiKey}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            model: "openai/gpt-4o-mini",
+            messages: [
+              { role: "system", content: "You are a helpful career assistant." },
+              ...aiMessages.filter(m => m.text && !m.loading).map(m => ({
+                role: m.isUser ? "user" : "assistant",
+                content: m.text
+              })),
+              { role: "user", content: aiInput }
+            ]
+          })
+        });
+        const data = await response.json();
+        console.log("OpenRouter API response:", data); // <-- Add this line
+        if (data.error) {
+          setAiMessages(prev => [
+            ...prev.filter(m => !m.loading),
+            { text: "API Error: " + (data.error.message || JSON.stringify(data.error)), isUser: false }
+          ]);
+          return;
+        }
+        const aiReply = data.choices?.[0]?.message?.content || "Sorry, I couldn't get a response.";
+        setAiMessages(prev => [
+          ...prev.filter(m => !m.loading),
+          { text: aiReply, isUser: false }
+        ]);
+      } catch (err) {
+        setAiMessages(prev => [
+          ...prev.filter(m => !m.loading),
+          { text: "Error: Could not reach OpenRouter API.", isUser: false }
+        ]);
+      }
     }
   };
 
@@ -524,7 +585,10 @@ const Dashboard = () => {
             <div className="ai-messages">
               {aiMessages.map((message, index) => (
                 <div key={index} className={`ai-message ${message.isUser ? 'user' : 'bot'}`}>
-                  {message.text}
+                  {message.isUser
+                    ? message.text
+                    : formatAiResponse(message.text)
+                  }
                 </div>
               ))}
             </div>

@@ -322,7 +322,7 @@ const Roadmap = ({ completedSteps, setCompletedSteps }) => {
     stepsRender = <div style={{ color: 'red', marginTop: 24 }}>An error occurred while rendering the roadmap steps: {err.message}</div>;
   }
 
-  // --- NEW: Roadmap Info Card ---
+
   const roadmapInfo = (
     <div
       style={{
