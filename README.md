@@ -83,37 +83,100 @@ SkillBridge is a modern, AI-powered career development platform that helps users
 - npm or yarn
 - Google Gemini API key (for AI features)
 
-### Installation
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/skillbridge.git
-   cd skillbridge
-   ```
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+# SkillBridge Project
 
-3. **Start the development server**
-   ```bash
-   npm run dev
-   ```
+A full-stack MERN application with JWT authentication, MongoDB, and a React frontend.
 
-4. **Open your browser**
-   Navigate to `http://localhost:5173`
+---
 
-### Environment Setup
+## Installation
 
-Create a `.env` file in the root directory (optional for demo):
-```env
-VITE_GEMINI_API_KEY=your_gemini_api_key_here
+### 1. **Clone the Repository**
+
+```bash
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
 ```
 
 ---
 
-## 📖 Usage Guide
+### 2. **Start the Backend**
+
+1. **Navigate to the backend folder:**
+    ```bash
+    cd backend
+    ```
+
+2. **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+3. **Create a `.env` file** in the `backend` folder with the following content:
+    ```env
+    MONGO_URI=mongodb://localhost:27017/yourdbname
+    JWT_SECRET=your_jwt_secret
+    PORT=5000
+    ```
+
+4. **Start MongoDB**  
+   Make sure MongoDB is running locally.  
+   If you have MongoDB installed, you can start it with:
+    ```bash
+    mongod
+    ```
+
+5. **Start the backend server:**
+    ```bash
+    npm start
+    ```
+    Or, for development with auto-reload (if you have nodemon installed):
+    ```bash
+    npm run dev
+    ```
+
+---
+
+### 3. **Start the Frontend**
+
+1. **Open a new terminal and return to the project root:**
+    ```bash
+    cd ..
+    ```
+
+2. **Install frontend dependencies:**
+    ```bash
+    npm install
+    ```
+
+3. **Start the frontend development server:**
+    ```bash
+    npm run dev
+    ```
+    Or, if using Create React App:
+    ```bash
+    npm start
+    ```
+
+---
+
+### 4. **Access the App**
+
+- **Frontend:** [http://localhost:5173](http://localhost:5173) (or [http://localhost:3000](http://localhost:3000) for Create React App)
+- **Backend API:** [http://localhost:5000](http://localhost:5000)
+
+---
+
+## 📝 Notes
+
+- Make sure you have **Node.js** and **MongoDB** installed on your machine.
+- The backend must be running for authentication and protected routes to work.
+- Update the `.env` file with your own secrets and database name.
+
+---
+
 
 ### 🎯 Getting Started
 

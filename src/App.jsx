@@ -9,13 +9,7 @@ import LoginModal from './components/auth/LoginModal';
 import SignupModal from './components/auth/SignupModal';
 import CustomCursor from './components/common/CustomCursor';
 import './App.css';
-
-// Protected Route component
-const ProtectedRoute = ({ children }) => {
-  const { isLoggedIn } = useAuth();
-  console.log('ProtectedRoute: isLoggedIn =', isLoggedIn);
-  return isLoggedIn ? children : <Navigate to="/" replace />;
-};
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);

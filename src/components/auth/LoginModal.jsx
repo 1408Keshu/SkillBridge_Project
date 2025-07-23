@@ -23,12 +23,11 @@ const LoginModal = ({ isOpen, onClose, onSwitchToSignup }) => {
     
     try {
       await login(email, password);
-      
       // Close modal and redirect to dashboard
       onClose();
       navigate('/dashboard');
     } catch (err) {
-      setError('Invalid email or password. Try:\n- demo@skillbridge.ai / password123\n- user@test.com / test123\n- admin@skillbridge.ai / admin123');
+      setError(err.message || 'Login failed');
     } finally {
       setLoading(false);
     }

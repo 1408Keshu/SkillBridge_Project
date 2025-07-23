@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import axios from 'axios';
 
 const SignupModal = ({ isOpen, onClose, onSwitchToLogin }) => {
   const [formData, setFormData] = useState({
@@ -7,17 +8,26 @@ const SignupModal = ({ isOpen, onClose, onSwitchToLogin }) => {
     password: ''
   });
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    
-    // Simulate signup process
-    setTimeout(() => {
-      alert('Account created successfully! Please login with your credentials.');
+    setError('');
+    setSuccess('');
+    try {
+      await axios.post('http://localhost:5000/api/auth/register', formData);
+      localStorage.setItem('userName', formData.name); // Store the name
+      setSuccess('Account created successfully! Please login with your credentials.');
       setLoading(false);
-      onSwitchToLogin();
-    }, 1000);
+      setTimeout(() => {
+        onSwitchToLogin();
+      }, 1200);
+    } catch (err) {
+      setError(err.response?.data?.msg || 'Signup failed');
+      setLoading(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -30,6 +40,8 @@ const SignupModal = ({ isOpen, onClose, onSwitchToLogin }) => {
   const handleClose = () => {
     setFormData({ name: '', email: '', password: '' });
     setLoading(false);
+    setError('');
+    setSuccess('');
     onClose();
   };
 
@@ -92,7 +104,8 @@ const SignupModal = ({ isOpen, onClose, onSwitchToLogin }) => {
             {loading ? 'Creating Account...' : 'Create Account'}
           </button>
         </form>
-        
+        {error && <div style={{color:'red', marginTop:8}}>{error}</div>}
+        {success && <div style={{color:'green', marginTop:8}}>{success}</div>}
         <div className="auth-footer">
           Already have an account? <button onClick={onSwitchToLogin} style={{ background: 'none', border: 'none', color: 'var(--primary)', cursor: 'pointer', textDecoration: 'underline' }}>Log in</button>
         </div>

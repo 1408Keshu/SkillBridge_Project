@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import axios from 'axios';
 
 const AuthContext = createContext();
 
@@ -13,56 +14,54 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userEmail, setUserEmail] = useState('');
+  const [token, setToken] = useState(localStorage.getItem('token') || '');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check localStorage for existing session
     const loggedIn = localStorage.getItem('userLoggedIn');
     const email = localStorage.getItem('userEmail');
-    
-    if (loggedIn === 'true' && email) {
+    const storedToken = localStorage.getItem('token');
+    if (loggedIn === 'true' && email && storedToken) {
       setIsLoggedIn(true);
       setUserEmail(email);
+      setToken(storedToken);
     }
+    setLoading(false); // <-- Add this line
   }, []);
 
   const login = async (email, password) => {
-    // Demo credentials (in real app, you'd verify with a server)
-    const validUsers = [
-      { email: 'demo@skillbridge.ai', password: 'password123' },
-      { email: 'user@test.com', password: 'test123' },
-      { email: 'admin@skillbridge.ai', password: 'admin123' }
-    ];
-
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const user = validUsers.find(u => u.email === email && u.password === password);
-        
-        if (user) {
-          // Store user session
-          localStorage.setItem('userLoggedIn', 'true');
-          localStorage.setItem('userEmail', email);
-          setIsLoggedIn(true);
-          setUserEmail(email);
-          resolve(user);
-        } else {
-          reject(new Error('Invalid credentials'));
-        }
-      }, 1000); // Simulate network delay
-    });
+    try {
+      const res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+      const { token, user } = res.data;
+      localStorage.setItem('userLoggedIn', 'true');
+      localStorage.setItem('userEmail', user.email);
+      localStorage.setItem('userName', user.name); // <-- Add this line
+      localStorage.setItem('token', token);
+      setIsLoggedIn(true);
+      setUserEmail(user.email);
+      setToken(token);
+      return user;
+    } catch (err) {
+      throw new Error(err.response?.data?.msg || 'Invalid credentials');
+    }
   };
 
   const logout = () => {
     localStorage.removeItem('userLoggedIn');
     localStorage.removeItem('userEmail');
+    localStorage.removeItem('token');
     setIsLoggedIn(false);
     setUserEmail('');
+    setToken('');
   };
 
   const value = {
     isLoggedIn,
     userEmail,
+    token,
     login,
-    logout
+    logout,
+    loading, // <-- Add this
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

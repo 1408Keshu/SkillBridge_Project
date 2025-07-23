@@ -326,6 +326,8 @@ const Dashboard = () => {
     }
   };
 
+  const avatarUrl = `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(userName)}`;
+
   return (
     <div className="dashboard-container">
       {/* Profile Modal */}
@@ -364,7 +366,11 @@ const Dashboard = () => {
         </div>
         <div className="user-profile" onClick={() => setShowProfileModal(true)}>
           <div className="user-avatar">
-            {userName.split(' ').map(word => word[0]).join('').slice(0, 2).toUpperCase()}
+            <img
+              src={avatarUrl}
+              alt="Profile Avatar"
+              style={{ width: 48, height: 48, borderRadius: '50%' }}
+            />
           </div>
           <div className="user-info">
             <h4>{userName}</h4>
