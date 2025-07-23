@@ -14,7 +14,7 @@ const Header = ({ onLoginClick, onSignupClick }) => {
   return (
     <header className="top-nav">
       <Link to="/" className="logo">
-        <img src="/logo.png" alt="SkillBridge Logo" className="logo-image" 
+        <img src="/skillbridge-logo-color.png" alt="SkillBridge Logo" className="logo-image" 
         />SkillBridge
       </Link>
 
