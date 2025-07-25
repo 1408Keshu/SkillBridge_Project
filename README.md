@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![SkillBridge Logo](public/logo2.webp)
+![SkillBridge Logo](public/skillbridge-logo-color.png)
 
 **Unlock Your Tech Career Potential with AI-Driven Learning Paths**
 
