@@ -285,6 +285,7 @@ const Dashboard = () => {
           ]);
           return;
         }
+        const educationalPrompt = `Only answer if the following question is about education or computer science/engineering (CSE) or greetings. If it is not, politely reply: 'I can help you with educational or CSE topics. Please ask something related to those.' Here is the user's question: ${aiInput}`;
         const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
           method: 'POST',
           headers: {
@@ -299,7 +300,7 @@ const Dashboard = () => {
                 role: m.isUser ? "user" : "assistant",
                 content: m.text
               })),
-              { role: "user", content: aiInput }
+              { role: "user", content: educationalPrompt }
             ]
           })
         });
