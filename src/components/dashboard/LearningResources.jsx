@@ -11,10 +11,10 @@ const LearningResources = ({ careerPath, resources, handleResourceClick }) => {
         </div>
         <div className="resources-grid">
           {resources.concat([
-            { icon: 'fas fa-video', type: 'Video Course', title: 'Advanced JavaScript Concepts', meta: ['6h 30m', 'Free'] },
-            { icon: 'fas fa-book-open', type: 'eBook', title: 'Clean Code Principles', meta: ['350 pages', 'Free'] },
-            { icon: 'fas fa-graduation-cap', type: 'Course', title: 'System Design Fundamentals', meta: ['8h', 'Premium'] },
-            { icon: 'fas fa-code-branch', type: 'Tutorial', title: 'Git & GitHub Mastery', meta: ['3h 15m', 'Free'] }
+            { icon: 'fas fa-video', type: 'Video Course', title: 'Advanced JavaScript Concepts', meta: ['6h 30m', 'Free'], url: 'https://www.youtube.com/watch?v=Mus_vwhTCq0' },
+            { icon: 'fas fa-book-open', type: 'eBook', title: 'Clean Code Principles', meta: ['350 pages', 'Free'], url: 'https://www.geeksforgeeks.org/7-tips-to-write-clean-and-better-code-in-2020/' },
+            { icon: 'fas fa-graduation-cap', type: 'Course', title: 'System Design Fundamentals', meta: ['8h', 'Free'], url: 'https://www.youtube.com/watch?v=UzLMhqg3_Wc' },
+            { icon: 'fas fa-code-branch', type: 'Tutorial', title: 'Git & GitHub Mastery', meta: ['3h 15m', 'Free'], url: 'https://www.youtube.com/watch?v=RGOj5yH7evk' }
           ]).map((resource, index) => (
             <div key={index} className="resource-card" onClick={() => handleResourceClick(resource)}>
               <div className="resource-image">
