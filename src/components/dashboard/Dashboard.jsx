@@ -79,46 +79,46 @@ const Dashboard = () => {
 
   const careerResources = {
     'Full-Stack Developer': [
-      { icon: 'fas fa-database', type: 'Video Course', title: 'MongoDB for Beginners', meta: ['4h 10m', 'Free'] },
-      { icon: 'fas fa-book', type: 'Documentation', title: 'Node.js Official Docs', meta: ['Reading', 'Free'] },
-      { icon: 'fas fa-laptop-code', type: 'Tutorial', title: 'Build a REST API with Express', meta: ['2h 30m', 'Free'] },
-      { icon: 'fas fa-code', type: 'Practice', title: 'React Coding Challenges', meta: ['20 Problems', 'Free'] }
+      { icon: 'fas fa-database', type: 'Video Course', title: 'MongoDB for Beginners', meta: ['4h 10m', 'Free'], url: 'https://www.youtube.com/watch?v=J6mDkcqU_ZE' },
+      { icon: 'fas fa-book', type: 'Documentation', title: 'Node.js Official Docs', meta: ['Reading', 'Free'], url: 'https://nodejs.org/en/docs/' },
+      { icon: 'fas fa-laptop-code', type: 'Tutorial', title: 'Build a REST API with Express', meta: ['2h 30m', 'Free'], url: 'https://www.youtube.com/watch?v=pKd0Rpw7O48' },
+      { icon: 'fas fa-code', type: 'Practice', title: 'React Coding Challenges', meta: ['20 Problems', 'Free'], url: 'https://www.geeksforgeeks.org/reactjs-tutorial/' }
     ],
     'Data Scientist': [
-      { icon: 'fas fa-chart-line', type: 'Video Course', title: 'Python for Data Science', meta: ['5h', 'Free'] },
-      { icon: 'fas fa-calculator', type: 'Tutorial', title: 'Statistics & Probability', meta: ['3h 45m', 'Free'] },
-      { icon: 'fas fa-brain', type: 'Course', title: 'Machine Learning Basics', meta: ['8h', 'Premium'] },
-      { icon: 'fas fa-table', type: 'Practice', title: 'Pandas Exercises', meta: ['15 Problems', 'Free'] }
+      { icon: 'fas fa-chart-line', type: 'Video Course', title: 'Python for Data Science', meta: ['5h', 'Free'], url: 'https://www.youtube.com/watch?v=LHBE6Q9XlzI' },
+      { icon: 'fas fa-calculator', type: 'Tutorial', title: 'Statistics & Probability', meta: ['3h 45m', 'Free'], url: 'https://www.geeksforgeeks.org/statistics-for-data-science/' },
+      { icon: 'fas fa-brain', type: 'Course', title: 'Machine Learning Basics', meta: ['8h', 'Free'], url: 'https://www.youtube.com/watch?v=PPLop4L2eGk' },
+      { icon: 'fas fa-table', type: 'Practice', title: 'Pandas Exercises', meta: ['15 Problems', 'Free'], url: 'https://www.w3schools.com/python/pandas/default.asp' }
     ],
     'UI/UX Designer': [
-      { icon: 'fas fa-palette', type: 'Course', title: 'Design Principles', meta: ['4h', 'Free'] },
-      { icon: 'fas fa-mobile-alt', type: 'Tutorial', title: 'Mobile UI Design', meta: ['3h', 'Free'] },
-      { icon: 'fas fa-users', type: 'Course', title: 'User Research Methods', meta: ['6h', 'Premium'] },
-      { icon: 'fas fa-pencil-ruler', type: 'Tool', title: 'Figma Advanced Techniques', meta: ['2h 30m', 'Free'] }
+      { icon: 'fas fa-palette', type: 'Course', title: 'Design Principles', meta: ['4h', 'Free'], url: 'https://www.youtube.com/watch?v=c9Wg6Cb_YlU' },
+      { icon: 'fas fa-mobile-alt', type: 'Tutorial', title: 'Mobile UI Design', meta: ['3h', 'Free'], url: 'https://www.youtube.com/watch?v=FTFaQWZBqQ8' },
+      { icon: 'fas fa-users', type: 'Course', title: 'User Research Methods', meta: ['6h', 'Free'], url: 'https://www.geeksforgeeks.org/ui-ux-design/' },
+      { icon: 'fas fa-pencil-ruler', type: 'Tool', title: 'Figma Advanced Techniques', meta: ['2h 30m', 'Free'], url: 'https://www.youtube.com/watch?v=FTFaQWZBqQ8' }
     ],
     'DevOps Engineer': [
-      { icon: 'fas fa-cloud', type: 'Course', title: 'AWS Fundamentals', meta: ['6h', 'Free'] },
-      { icon: 'fas fa-docker', type: 'Tutorial', title: 'Docker Essentials', meta: ['4h', 'Free'] },
-      { icon: 'fas fa-cogs', type: 'Course', title: 'CI/CD with Jenkins', meta: ['5h', 'Premium'] },
-      { icon: 'fas fa-server', type: 'Practice', title: 'Kubernetes Labs', meta: ['10 Labs', 'Free'] }
+      { icon: 'fas fa-cloud', type: 'Course', title: 'AWS Fundamentals', meta: ['6h', 'Free'], url: 'https://www.youtube.com/watch?v=ulprqHHWlng' },
+      { icon: 'fas fa-docker', type: 'Tutorial', title: 'Docker Essentials', meta: ['4h', 'Free'], url: 'https://www.youtube.com/watch?v=pTFZFxd4hOI' },
+      { icon: 'fas fa-cogs', type: 'Course', title: 'CI/CD with Jenkins', meta: ['5h', 'Free'], url: 'https://www.youtube.com/watch?v=89yWXXIOisk' },
+      { icon: 'fas fa-server', type: 'Practice', title: 'Kubernetes Labs', meta: ['10 Labs', 'Free'], url: 'https://www.geeksforgeeks.org/devops-tutorial/' }
     ],
     'AI Engineer': [
-      { icon: 'fas fa-robot', type: 'Course', title: 'Deep Learning with PyTorch', meta: ['8h', 'Premium'] },
-      { icon: 'fas fa-brain', type: 'Tutorial', title: 'Neural Networks from Scratch', meta: ['6h', 'Free'] },
-      { icon: 'fas fa-language', type: 'Course', title: 'Natural Language Processing', meta: ['7h', 'Premium'] },
-      { icon: 'fas fa-eye', type: 'Practice', title: 'Computer Vision Projects', meta: ['5 Projects', 'Free'] }
+      { icon: 'fas fa-robot', type: 'Course', title: 'Deep Learning with PyTorch', meta: ['8h', 'Free'], url: 'https://www.youtube.com/watch?v=c36lUUr864M' },
+      { icon: 'fas fa-brain', type: 'Tutorial', title: 'Neural Networks from Scratch', meta: ['6h', 'Free'], url: 'https://www.youtube.com/watch?v=aircAruvnKk' },
+      { icon: 'fas fa-language', type: 'Course', title: 'Natural Language Processing', meta: ['7h', 'Free'], url: 'https://www.youtube.com/watch?v=X2vAabgKiuM' },
+      { icon: 'fas fa-eye', type: 'Practice', title: 'Computer Vision Projects', meta: ['5 Projects', 'Free'], url: 'https://www.geeksforgeeks.org/artificial-intelligence-tutorial/' }
     ],
     'Cybersecurity Specialist': [
-      { icon: 'fas fa-shield-alt', type: 'Course', title: 'Ethical Hacking Basics', meta: ['5h', 'Free'] },
-      { icon: 'fas fa-bug', type: 'Tutorial', title: 'Penetration Testing', meta: ['4h', 'Premium'] },
-      { icon: 'fas fa-lock', type: 'Course', title: 'Network Security', meta: ['6h', 'Premium'] },
-      { icon: 'fas fa-search', type: 'Practice', title: 'Vulnerability Assessment', meta: ['8 Labs', 'Free'] }
+      { icon: 'fas fa-shield-alt', type: 'Course', title: 'Ethical Hacking Basics', meta: ['5h', 'Free'], url: 'https://www.youtube.com/watch?v=3Kq1MIfTWCE' },
+      { icon: 'fas fa-bug', type: 'Tutorial', title: 'Penetration Testing', meta: ['4h', 'Free'], url: 'https://www.youtube.com/watch?v=U_P23SqJaDc' },
+      { icon: 'fas fa-lock', type: 'Course', title: 'Network Security', meta: ['6h', 'Free'], url: 'https://www.geeksforgeeks.org/cyber-security-tutorial/' },
+      { icon: 'fas fa-search', type: 'Practice', title: 'Vulnerability Assessment', meta: ['8 Labs', 'Free'], url: 'https://www.w3schools.com/cybersecurity/' }
     ],
     'Blockchain Developer': [
-      { icon: 'fas fa-link', type: 'Video Course', title: 'Blockchain Basics', meta: ['3h 30m', 'Free'] },
-      { icon: 'fas fa-book', type: 'Documentation', title: 'Solidity Official Docs', meta: ['Reading', 'Free'] },
-      { icon: 'fas fa-laptop-code', type: 'Tutorial', title: 'Build a Smart Contract', meta: ['2h', 'Free'] },
-      { icon: 'fas fa-code', type: 'Practice', title: 'Blockchain Coding Challenges', meta: ['10 Problems', 'Free'] }
+      { icon: 'fas fa-link', type: 'Video Course', title: 'Blockchain Basics', meta: ['3h 30m', 'Free'], url: 'https://www.youtube.com/watch?v=gyMwXuJrbJQ' },
+      { icon: 'fas fa-book', type: 'Documentation', title: 'Solidity Official Docs', meta: ['Reading', 'Free'], url: 'https://docs.soliditylang.org/' },
+      { icon: 'fas fa-laptop-code', type: 'Tutorial', title: 'Build a Smart Contract', meta: ['2h', 'Free'], url: 'https://www.youtube.com/watch?v=ipwxYa-F1uY' },
+      { icon: 'fas fa-code', type: 'Practice', title: 'Blockchain Coding Challenges', meta: ['10 Problems', 'Free'], url: 'https://www.geeksforgeeks.org/blockchain-tutorial/' }
     ]
   };
 
@@ -248,7 +248,11 @@ const Dashboard = () => {
   };
 
   const handleResourceClick = (resource) => {
-    alert(`Opening ${resource.title}... (This is a demo)`);
+    if (resource.url) {
+      window.open(resource.url, '_blank', 'noopener,noreferrer');
+    } else {
+      alert(`Opening ${resource.title}... (This is a demo)`);
+    }
   };
 
   const updateProfile = (name, skills, path) => {
