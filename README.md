@@ -119,6 +119,8 @@ cd your-repo-name
     MONGO_URI=mongodb://localhost:27017/yourdbname
     JWT_SECRET=your_jwt_secret
     PORT=5000
+    VITE_GEMINI_API_KEY=your_gemini_api_key_here
+    VITE_OPENROUTER_API_KEY= your_openRouter_Api_key
     ```
 
 4. **Start MongoDB**  
@@ -295,9 +297,22 @@ skillbridge/
 
 To use the AI roadmap generation feature, you'll need a Google Gemini API key:
 
-1. Visit [Google AI Studio](https://makersuite.google.com/app/apikey)
-2. Create a new API key
-3. Use the key when prompted in the application
+1. **Get Your API Key:**
+   - Visit [Google AI Studio](https://makersuite.google.com/app/apikey)
+   - Create a new API key
+   - Copy the generated key
+
+2. **Configure Environment Variable:**
+   - Add your API key to the `.env` file in the `backend` folder:
+     ```env
+     GEMINI_API_KEY=your_actual_api_key_here
+     ```
+   - Replace `your_actual_api_key_here` with your real Gemini API key
+
+3. **Security Notes:**
+   - Never commit your actual API key to version control
+   - The `.env` file should be included in `.gitignore`
+   - For production, use environment variables on your hosting platform
 
 ### Customization
 
