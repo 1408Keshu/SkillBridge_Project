@@ -3542,7 +3542,7 @@ body.light-mode .qa-card:hover {
 
 /* Dark mode specific enhancements */
 body:not(.light-mode) .interview-prep-container {
-  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);
+  background: linear-gradient(135deg, #161433 0%, #1e1d52 50%, #241d6b 100%);
 }
 
 body:not(.light-mode) .qa-card {
@@ -3641,7 +3641,7 @@ body.light-mode .qa-card:hover {
   width: 0;
   height: 0;
   background: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
+  border-radius: 10%;
   transform: translate(-50%, -50%);
   transition: width 0.3s, height 0.3s;
 }

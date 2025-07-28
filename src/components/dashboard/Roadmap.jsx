@@ -79,8 +79,11 @@ const Roadmap = ({ completedSteps, setCompletedSteps }) => {
     setError('');
     setDebug(null);
     setRenderError(null);
-    const key = prompt('Enter your Gemini API key:');
-    if (!key) return;
+    const key = import.meta.env.VITE_GEMINI_API_KEY;
+    if (!key) {
+      setError('Gemini API key is missing. Please set VITE_GEMINI_API_KEY in your .env file.');
+      return;
+    }
     setLoading(true);
     setRoadmapSteps([]);
     setCompletedSteps(new Set());

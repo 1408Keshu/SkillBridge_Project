@@ -158,16 +158,11 @@ const InterviewPrep = () => {
 
   // Fetch questions from Gemini API
   const fetchGeminiQuestions = async (query) => {
-    let currentApiKey = apiKey;
+    let currentApiKey = apiKey || import.meta.env.VITE_GEMINI_API_KEY;
     
-    if (!currentApiKey.trim()) {
-      const userApiKey = prompt("Please enter your Gemini API key to generate AI questions:");
-      if (!userApiKey || !userApiKey.trim()) {
-        setApiError("API key is required to generate AI questions.");
-        return;
-      }
-      currentApiKey = userApiKey.trim();
-      setApiKey(currentApiKey);
+    if (!currentApiKey || !currentApiKey.trim()) {
+      setApiError("Gemini API key is missing. Please set VITE_GEMINI_API_KEY in your .env file.");
+      return;
     }
 
     setIsLoadingApi(true);
