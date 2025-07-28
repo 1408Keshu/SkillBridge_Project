@@ -82,6 +82,7 @@ SkillBridge is a modern, AI-powered career development platform that helps users
 - Node.js (v16 or higher)
 - npm or yarn
 - Google Gemini API key (for AI features)
+- MongoDB Atlas account (free tier available)
 
 
 
@@ -116,19 +117,27 @@ cd your-repo-name
 
 3. **Create a `.env` file** in the `backend` folder with the following content:
     ```env
-    MONGO_URI=mongodb://localhost:27017/yourdbname
+    MONGO_URI=mongodb+srv://your_username:your_password@your_cluster.mongodb.net/your_database_name?retryWrites=true&w=majority
     JWT_SECRET=your_jwt_secret
     PORT=5000
     VITE_GEMINI_API_KEY=your_gemini_api_key_here
     VITE_OPENROUTER_API_KEY= your_openRouter_Api_key
     ```
 
-4. **Start MongoDB**  
-   Make sure MongoDB is running locally.  
-   If you have MongoDB installed, you can start it with:
-    ```bash
-    mongod
-    ```
+4. **Set up MongoDB Atlas**  
+   No need to install MongoDB locally! Use MongoDB Atlas cloud database:
+   
+   a. **Create MongoDB Atlas Account**
+   - Go to [MongoDB Atlas](https://www.mongodb.com/atlas)
+   - Sign up for a free account
+   - Create a new cluster (free tier available)
+   
+   b. **Get Your Connection String**
+   - Click "Connect" on your cluster
+   - Choose "Connect your application"
+   - Copy the connection string
+   - Replace `<username>`, `<password>`, and `<dbname>` with your values
+   - Update the `MONGO_URI` in your `.env` file
 
 5. **Start the backend server:**
     ```bash
@@ -173,9 +182,10 @@ cd your-repo-name
 
 ## 📝 Notes
 
-- Make sure you have **Node.js** and **MongoDB** installed on your machine.
+- Make sure you have **Node.js** installed on your machine.
+- **MongoDB Atlas** provides a free cloud database - no local installation needed!
 - The backend must be running for authentication and protected routes to work.
-- Update the `.env` file with your own secrets and database name.
+- Update the `.env` file with your own secrets and database connection string.
 
 ---
 
