@@ -7,10 +7,10 @@ const Projects = ({ careerPath }) => {
     {
       title: 'Task Management App',
       description: 'Build a full-stack task manager with React and Node.js.',
-      difficulty: 'Intermediate',
+      time: 'Duration',
       duration: '2-3 weeks',
       skills: ['React', 'Node.js', 'MongoDB'],
-      status: 'Not Started',
+      status: 'Intermediate',
       youtube: 'https://youtu.be/fZK57PxKC-0?si=WYD-zUEKthDtd6Sm',
       references: [
         { label: 'React Docs', url: 'https://react.dev' },
@@ -18,46 +18,47 @@ const Projects = ({ careerPath }) => {
         { label: 'MongoDB Guide', url: 'https://www.mongodb.com/docs/' },
       ],
       steps: [
-        'Set up backend with Node.js and MongoDB.',
-        'Build frontend using React.',
-        'Implement CRUD features.',
-        'Deploy the app.',
+        '•Built with React, Node.js, Express, and MongoDB (MERN stack).',
+        '•Supports task creation, editing, deletion, and status updates.',
+        '•Includes optional user authentication with JWT.',
+        '•Demonstrates full-stack development and REST API integration.',
       ],
     },
     {
       title: 'E-commerce Platform',
       description: 'Create a complete online store with payment integration.',
-      difficulty: 'Advanced',
+      time: 'Duration',
       duration: '4-6 weeks',
       skills: ['React', 'Express', 'Stripe API'],
-      status: 'In Progress',
+      status: 'Advanced',
       youtube: 'https://www.youtube.com/watch?v=377AQ0y6LPA',
       references: [
         { label: 'Stripe API Docs', url: 'https://stripe.com/docs/api' },
         { label: 'Express.js Guide', url: 'https://expressjs.com/' },
       ],
       steps: [
-        'Design product & user model.',
-        'Create product listing page.',
-        'Add Stripe checkout.',
-        'Handle orders and confirmations.',
+        '• Full-stack application with product listings, shopping cart, and checkout system.',
+        '• Built using React for frontend and Node.js/Express with MongoDB/MySQL backend.',
+        '• Integrates payment gateways like Stripe or Razorpay for secure transactions.',
+        '• Demonstrates skills in authentication, CRUD operations, and responsive design.',
       ],
     },
     {
       title: 'Real-time Chat App',
       description: 'Develop a real-time messaging application.',
-      difficulty: 'Advanced',
+      time: 'Duration',
       duration: '3-4 weeks',
       skills: ['Socket.io', 'Node.js', 'MongoDB'],
-      status: 'Not Started',
+      status: 'Intermediate',
       youtube: 'https://youtu.be/jD7FnbI76Hg?si=QkTSnerRmHzStMm4',
       references: [
         { label: 'Socket.io Docs', url: 'https://socket.io/docs/v4/' },
       ],
       steps: [
-        'Set up real-time server using Socket.io.',
-        'Build UI for sending & receiving messages.',
-        'Store messages in database.',
+        '• Developed using Node.js, Express, and Socket.io for real-time communication.',
+        '• Enables users to send and receive messages instantly in chat rooms or one-to-one.',
+        '• Frontend built with React or Vanilla JS for a dynamic UI experience.',
+        '• Demonstrates skills in WebSockets, event-driven programming, and full-stack development.',
       ],
     },
   ];
@@ -66,102 +67,111 @@ const Projects = ({ careerPath }) => {
   careerPath === 'Data Scientist'
     ? [
         {
-          title: 'Data Analysis with Pandas',
+          title: 'Data Analyst Portfolio with Pandas',
           description: 'Analyze real-world datasets using Python and Pandas.',
-          difficulty: 'Intermediate',
+          time: 'Duration',
           duration: '2-3 weeks',
           skills: ['Python', 'Pandas', 'Data Visualization'],
-          status: 'In Progress',
-          youtube: 'https://www.youtube.com/watch?v=vmEHCJofslg',
+          status: 'Beginner',
+          youtube: 'https://youtu.be/4sZFkPw87ng?si=1z1p3CYWH8tlKN3u',
           references: [
             { label: 'Pandas Docs', url: 'https://pandas.pydata.org/docs/' },
           ],
           steps: [
-            'Import and clean data.',
-            'Perform exploratory analysis.',
-            'Create visualizations with Seaborn or Matplotlib.',
+            '• Built using Python and Pandas to analyze real-world datasets.',
+            '• Showcases data cleaning, transformation, and exploratory data analysis (EDA).',
+            '• Includes visualizations with Matplotlib or Seaborn to present insights.',
+            '• Demonstrates skills in data wrangling, statistical analysis, and portfolio building.',
           ],
         },
         {
-          title: 'Machine Learning Model',
+          title: 'Movie Recommendation System',
           description: 'Train a model to predict housing prices.',
-          difficulty: 'Advanced',
+          time: 'Duration',
           duration: '4-5 weeks',
           skills: ['Scikit-learn', 'Python'],
-          status: 'Not Started',
-          youtube: 'https://www.youtube.com/watch?v=ZJ7o0OD3obg',
+          status: 'Advanced',
+          youtube: 'https://youtu.be/eyEabQRBMQA?si=kHxNwwH1KxR-K1tI',
           references: [
             { label: 'Scikit-learn Docs', url: 'https://scikit-learn.org/stable/' },
           ],
           steps: [
-            'Prepare dataset.',
-            'Train/test a regression model.',
-            'Evaluate accuracy and deploy.',
+            '• Built using Python and machine learning libraries like Scikit-learn or Surprise.',
+            '• Recommends movies based on user preferences using collaborative or content-based filtering.',
+            '• Involves data preprocessing, model training, and evaluation metrics like RMSE.',
+            '• Demonstrates skills in ML model development, data analysis, and recommendation algorithms.',
           ],
         },
       ]
     : careerPath === 'UI/UX Designer'
     ? [
         {
-          title: 'Redesign a Mobile App',
+          title: 'Food Delivery Application',
           description: 'Create wireframes and mockups for a popular app.',
-          difficulty: 'Beginner',
+          time: 'Duration',
           duration: '1-2 weeks',
           skills: ['Figma', 'User Research'],
-          status: 'In Progress',
-          youtube: 'https://www.youtube.com/watch?v=FTFaQWZBqQ8',
+          status: 'Beginner',
+          youtube: 'https://youtu.be/ZcqbRSLLyvk?si=htI2J8aePCx48XBc',
           references: [
             { label: 'Figma Guide', url: 'https://help.figma.com/' },
           ],
           steps: [
-            'Conduct heuristic evaluation.',
-            'Design wireframes.',
-            'Test with users and iterate.',
+            '• Designed using UI/UX tools like Figma to create wireframes and prototypes.',
+            '• Focuses on user flows for browsing restaurants, ordering food, and tracking delivery.',
+            '• Incorporates user research, personas, and usability testing.',
+            '• Demonstrates skills in interaction design, visual hierarchy, and responsive layouts.',
           ],
         },
         {
-          title: 'Build a Design System',
+          title: 'To-Do List',
           description: 'Create reusable components for a product.',
-          difficulty: 'Intermediate',
+          time: 'Duration',
           duration: '3-4 weeks',
           skills: ['Design Tokens', 'Accessibility'],
-          status: 'Not Started',
-          youtube: '',
+          status: 'Intermediate',
+          youtube: 'https://youtu.be/-0LE5X9SYsE?si=2JJpTuPyfJsWKWfF',
           references: [],
-          steps: ['Audit existing UI.', 'Define color/spacing tokens.', 'Build component library.'],
+          steps: ['• Built using HTML, CSS, and JavaScript or frameworks like React.', '• Allows users to add, edit, mark as complete, and delete tasks.', '• Stores tasks locally or using browser storage (e.g., LocalStorage).',
+            '• Demonstrates skills in UI/UX design, component reuse, and state management.',
+          ],
         },
       ]
     : careerPath === 'DevOps Engineer'
     ? [
         {
-          title: 'CI/CD Pipeline',
-          description: 'Set up a CI/CD pipeline with GitHub Actions.',
-          difficulty: 'Intermediate',
+          title: 'Dockerize and Deploy React JS App',
+          description: 'Containerize a simple web application using Docker and Docker Compose.',
+          time: 'Duration',
           duration: '2-3 weeks',
           skills: ['GitHub Actions', 'Docker'],
-          status: 'In Progress',
-          youtube: 'https://www.youtube.com/watch?v=ML744B7UZIA',
+          status: 'Intermediate',
+          youtube: 'https://youtu.be/dfTco9hmXEM?si=ge4S17RBE2ZOBWPa',
           references: [
             { label: 'GitHub Actions Docs', url: 'https://docs.github.com/en/actions' },
           ],
           steps: [
-            'Write workflows.',
-            'Test builds and deployments.',
-            'Integrate Docker and test automation.',
+            '• Containerizes a React application using Docker and defines services with Docker Compose.',
+            '• Ensures consistent environment across development and production.',
+            '• Supports deployment to platforms like AWS, Heroku, or Render.',
+            '• Demonstrates skills in containerization, deployment, and DevOps workflows.',
           ],
         },
         {
-          title: 'Infrastructure as Code',
-          description: 'Use Terraform to manage cloud infrastructure.',
-          difficulty: 'Advanced',
-          duration: '4-6 weeks',
-          skills: ['Terraform', 'AWS'],
-          status: 'Not Started',
-          youtube: 'https://www.youtube.com/watch?v=SLB_c_ayRMo',
+          title: 'CI/CD Pipeline with GitHub Actions',
+          description: ' Automate build, test, and deployment for a simple web application using GitHub Actions.',
+          time: 'Duration',
+          duration: '1-2 weeks',
+          skills: ['Automation', 'testing'],
+          status: 'Beginner',
+          youtube: 'https://youtu.be/R8_veQiYBjI?si=JCDOAX9w6IU2pz2V',
           references: [
             { label: 'Terraform Docs', url: 'https://developer.hashicorp.com/terraform/docs' },
           ],
-          steps: ['Set up IAM roles.', 'Define EC2 and S3.', 'Deploy with Terraform CLI.'],
+          steps: ['• Automates code build, test, and deployment processes using GitHub Actions workflows.',
+             '• Triggers on events like push or pull requests to ensure code quality and integration.', 
+             '• Supports environments like Node.js, React, Docker, and cloud platforms.',
+             '• Demonstrates skills in DevOps, automation, and continuous integration/deployment practices',],
         },
       ]
     : careerPath === 'AI Engineer'
@@ -169,61 +179,70 @@ const Projects = ({ careerPath }) => {
         {
           title: 'Image Classifier',
           description: 'Train a neural net to classify images using TensorFlow.',
-          difficulty: 'Advanced',
-          duration: '4-6 weeks',
+          time: 'Duration',
+          duration: '3-4 weeks',
           skills: ['TensorFlow', 'Python', 'Deep Learning'],
-          status: 'In Progress',
-          youtube: 'https://www.youtube.com/watch?v=RznKVRTFkBY',
+          status: 'Intermediate',
+          youtube: 'https://youtu.be/V61xy1ZnVTM?si=6f2qv7o5lYfF26tv',
           references: [
             { label: 'TensorFlow Docs', url: 'https://www.tensorflow.org/tutorials' },
           ],
           steps: [
-            'Prepare image dataset.',
-            'Train CNN model.',
-            'Test and deploy as web app.',
+            '• Built using Python and TensorFlow or Keras to train a Convolutional Neural Network (CNN).',
+            '• Classifies images into categories (e.g., cats vs. dogs) using supervised learning.',
+            '• Includes steps like data preprocessing, model training, and evaluation.',
+            '• Demonstrates skills in deep learning, image processing, and model deployment.',
           ],
         },
         {
           title: 'AI Chatbot',
           description: 'Build a basic chatbot using NLP models.',
-          difficulty: 'Intermediate',
-          duration: '3-4 weeks',
-          skills: ['NLP', 'Rasa', 'Python'],
-          status: 'Not Started',
-          youtube: '',
+          time: 'Duration',
+          duration: '4-5 weeks',
+          skills: ['NLP', 'Python'],
+          status: 'Advanced',
+          youtube: 'https://youtu.be/2e5pQqBvGco?si=7XQU8ejAatTxwH0s',
           references: [],
-          steps: ['Define intents.', 'Train with Rasa.', 'Deploy locally.'],
+          steps: ['• Built using Python with Natural Language Processing (NLP) libraries like NLTK or spaCy.', 
+            '• Understands user input and responds using predefined intents or ML models.',
+          '• Can be deployed on web or messaging platforms for real-time interaction.',
+          '• Demonstrates skills in NLP, intent classification, and chatbot logic design.',
+        ],
         },
       ]
     : careerPath === 'Cybersecurity Specialist'
     ? [
         {
-          title: 'Vulnerability Scanner',
-          description: 'Write a tool to scan web apps for common flaws.',
-          difficulty: 'Advanced',
-          duration: '4-5 weeks',
+          title: 'Password Strength Checker',
+          description: 'Create a tool to evaluate the strength of passwords and provide suggestions for improvement.',
+          time: 'Duration',
+          duration: '2-3 weeks',
           skills: ['Python', 'Security Tools'],
-          status: 'Not Started',
-          youtube: 'https://www.youtube.com/watch?v=8T2b2qzjNqA',
+          status: 'Beginner',
+          youtube: 'https://youtu.be/ueIb_EtFHhA?si=gQWnWxVMI3P2_3Pm',
           references: [
             { label: 'OWASP Top 10', url: 'https://owasp.org/www-project-top-ten/' },
           ],
           steps: [
-            'Research OWASP issues.',
-            'Write scanners for XSS, SQLi.',
-            'Generate report.',
+            '• Built with Python and basic web technologies or CLI for user input.',
+            '• Evaluates password strength based on length, character variety, and common patterns.',
+            '• Provides real-time feedback and improvement suggestions.',
+            '• Demonstrates understanding of cybersecurity basics and input validation.',
           ],
         },
         {
           title: 'Secure Login System',
           description: 'Implement a secure authentication system.',
-          difficulty: 'Intermediate',
+          time: 'Duration',
           duration: '2-3 weeks',
           skills: ['JWT', 'Hashing'],
-          status: 'In Progress',
-          youtube: '',
+          status: 'Beginner',
+          youtube: 'https://youtu.be/OmLdoEMcr_Y?si=8PL9Nfmpv0foC3-J',
           references: [],
-          steps: ['Implement salted password hash.', 'Add JWT.', 'Test for flaws.'],
+          steps: ['•Built using Node.js, Express, and MongoDB with React for frontend.',
+             '• Implements secure user authentication with JWT and bcrypt hashing.',
+             '• Protects routes with token-based access control.',
+             '• Demonstrates best practices in web security and session management.'],
         },
       ]
     : careerPath === 'Blockchain Developer'
@@ -231,40 +250,44 @@ const Projects = ({ careerPath }) => {
         {
           title: 'NFT Marketplace',
           description: 'Create a platform to mint and trade NFTs.',
-          difficulty: 'Advanced',
+          time: 'Duration',
           duration: '6 weeks',
           skills: ['Solidity', 'React', 'Web3'],
-          status: 'Not Started',
-          youtube: 'https://www.youtube.com/watch?v=3681ZYbDSSk',
+          status: 'Advanced',
+          youtube: 'https://youtu.be/FZIb1LQ1ICY?si=WUV6h8yQhKnvP84I',
           references: [
             { label: 'OpenZeppelin Docs', url: 'https://docs.openzeppelin.com/' },
           ],
           steps: [
-            'Write smart contract.',
-            'Connect Web3 frontend.',
-            'Deploy to testnet.',
+            '• Built using Solidity, React, and Web3.js for minting and trading NFTs.',
+            '• Implements ERC-721 smart contracts with OpenZeppelin standards.',
+            '• Allows users to mint, list, buy, and sell NFTs on the Ethereum blockchain.',
+            '• Demonstrates skills in blockchain development, smart contract deployment, and dApp integration.',
           ],
         },
         {
-          title: 'Token Swap DApp',
-          description: 'Build a decentralized exchange for token swaps.',
-          difficulty: 'Advanced',
-          duration: '5 weeks',
-          skills: ['Solidity', 'Uniswap SDK'],
-          status: 'Not Started',
-          youtube: '',
+          title: 'Cryptocurrency Wallet Interface',
+          description: 'Simple interface to send and receive Ethereum',
+          time: 'Duration',
+          duration: '2-3 weeks',
+          skills: ['Wallet integration', 'Web3.js'],
+          status: 'Beginner',
+          youtube: 'https://youtu.be/k_rMyxWBBY4?si=Z6WK45C2ETINoELu',
           references: [],
-          steps: ['Use Uniswap SDK.', 'Deploy to local blockchain.', 'Connect via Metamask.'],
+          steps: ['• Built with React and Web3.js for seamless blockchain interaction',
+                     '• Integrates MetaMask to enable secure send/receive of Ethereum',
+                     '• Displays real‑time balance and transaction history',
+                     '• Demonstrates wallet integration, smart‑contract calls, and UI state management.',],
         },
       ]
     : [
         {
           title: 'Portfolio Website',
           description: 'Create a professional portfolio showcasing your skills.',
-          difficulty: 'Beginner',
+          time: 'Duration',
           duration: '1-2 weeks',
           skills: ['HTML/CSS', 'JavaScript'],
-          status: 'Completed',
+          status: 'Beginner',
           youtube: 'https://www.youtube.com/watch?v=gYzHS-n2gqU',
           references: [
             {
@@ -281,10 +304,10 @@ const Projects = ({ careerPath }) => {
         {
           title: 'Industry-Specific Project',
           description: `Build a ${careerPath.toLowerCase()} focused application.`,
-          difficulty: 'Intermediate',
+          time: 'Duration',
           duration: '3-4 weeks',
           skills: ['Python', 'APIs'],
-          status: 'In Progress',
+          status: 'Intermediate',
           youtube: 'https://www.youtube.com/watch?v=GMppyAPbLYk',
           references: [
             {
@@ -301,10 +324,10 @@ const Projects = ({ careerPath }) => {
         {
           title: 'Capstone Project',
           description: 'Comprehensive project demonstrating all learned skills.',
-          difficulty: 'Advanced',
+          time: 'Duration',
           duration: '6-8 weeks',
           skills: ['Multiple'],
-          status: 'Not Started',
+          status: 'Advanced',
           youtube: '',
           references: [],
           steps: ['Plan your idea.', 'Build, test and deploy.', 'Document & present.'],
@@ -333,7 +356,7 @@ const Projects = ({ careerPath }) => {
         </div>
         <p className="project-description">{project.description}</p>
         <div className="project-meta">
-          <span className="project-difficulty">{project.difficulty}</span>
+          <span className="project-time">{project.time}</span>
           <span className="project-duration">{project.duration}</span>
         </div>
         <div className="project-skills">
@@ -343,11 +366,11 @@ const Projects = ({ careerPath }) => {
         </div>
         <div className="project-actions">
           <button className="step-btn primary" onClick={() => handleProjectClick(project)}>
-            {project.status === 'Not Started'
-              ? 'Start Project'
-              : project.status === 'In Progress'
-              ? 'Continue'
-              : 'View Project'}
+            {project.status === 'Beginner'
+              ? 'Project Tutorial'
+              : project.status === 'Intermediate'
+              ? 'Project Tutorial'
+              : 'Project Tutorial'}
           </button>
           <button className="step-btn secondary" onClick={() => toggleDetails(index)}>
             Details
@@ -356,7 +379,7 @@ const Projects = ({ careerPath }) => {
 
         {showDetails === index && (
           <div className="project-details">
-            <h4>📋 Steps:</h4>
+            <h4>📋 Overview:</h4>
             <ol>
               {project.steps.map((step, i) => (
                 <li key={i}>{step}</li>

@@ -1315,19 +1315,19 @@ body.light-mode .energy-circle::after {
   text-transform: uppercase;
 }
 
-.project-status.not-started {
-  background: #f3f4f6;
-  color: #6b7280;
+.project-status.beginner{
+  background: #76e9ad;
+  color: #000000;
 }
 
-.project-status.in-progress {
+.project-status.intermediate {
   background: #fef3c7;
   color: #d97706;
 }
 
-.project-status.completed {
-  background: #d1fae5;
-  color: #059669;
+.project-status.advanced {
+  background: #de4c70;
+  color: #faf4f6;
 }
 
 .project-description {
@@ -1343,7 +1343,7 @@ body.light-mode .energy-circle::after {
   font-size: 0.9rem;
 }
 
-.project-difficulty {
+.project-time {
   color: var(--primary);
   font-weight: 500;
 }
