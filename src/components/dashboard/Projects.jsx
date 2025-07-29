@@ -347,35 +347,35 @@ const Projects = ({ careerPath }) => {
 
   const renderProjects = (projects) =>
     projects.map((project, index) => (
-      <div key={index} className="project-card">
-        <div className="project-header">
-          <h4>{project.title}</h4>
+            <div key={index} className="project-card">
+              <div className="project-header">
+                <h4>{project.title}</h4>
           <span className={`project-status ${project.status.toLowerCase().replace(' ', '-')}`}>
             {project.status}
           </span>
-        </div>
-        <p className="project-description">{project.description}</p>
-        <div className="project-meta">
+              </div>
+              <p className="project-description">{project.description}</p>
+              <div className="project-meta">
           <span className="project-time">{project.time}</span>
-          <span className="project-duration">{project.duration}</span>
-        </div>
-        <div className="project-skills">
+                <span className="project-duration">{project.duration}</span>
+              </div>
+              <div className="project-skills">
           {project.skills.map((skill) => (
-            <span key={skill} className="skill-tag">{skill}</span>
-          ))}
-        </div>
-        <div className="project-actions">
+                  <span key={skill} className="skill-tag">{skill}</span>
+                ))}
+              </div>
+              <div className="project-actions">
           <button className="step-btn primary" onClick={() => handleProjectClick(project)}>
             {project.status === 'Beginner'
               ? 'Project Tutorial'
               : project.status === 'Intermediate'
               ? 'Project Tutorial'
               : 'Project Tutorial'}
-          </button>
+                </button>
           <button className="step-btn secondary" onClick={() => toggleDetails(index)}>
             Details
-          </button>
-        </div>
+                </button>
+              </div>
 
         {showDetails === index && (
           <div className="project-details">
@@ -400,9 +400,9 @@ const Projects = ({ careerPath }) => {
                 </ul>
               </>
             )}
-          </div>
+              </div>
         )}
-      </div>
+              </div>
     ));
 
   return (
@@ -415,7 +415,7 @@ const Projects = ({ careerPath }) => {
       <div className="widget">
         <div className="widget-header">
           <h3 className="widget-title">Recommended Projects for {careerPath}</h3>
-        </div>
+            </div>
         <div className="projects-grid">
           {careerPath === 'Full-Stack Developer'
             ? renderProjects(fullStackProjects)
