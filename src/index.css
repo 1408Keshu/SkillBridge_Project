@@ -1256,6 +1256,43 @@ body.light-mode .energy-circle::after {
   transition: width 1.5s ease-out;
 }
 
+.progress-fill.animated {
+  animation: progressFill 1.2s ease-out;
+}
+
+.progress-fill {
+  transition: width 0.8s ease-in-out;
+}
+
+@keyframes progressFill {
+  from {
+    width: 0%;
+  }
+  to {
+    width: var(--target-width);
+  }
+}
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  color: var(--text-secondary);
+}
+
+.loading-spinner i {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--primary);
+}
+
+.loading-spinner p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
 .skills-list {
   display: flex;
   flex-wrap: wrap;
@@ -3731,4 +3768,188 @@ body:not(.light-mode) .chatbot-header h2 {
 body:not(.light-mode) .qa-header p,
 body:not(.light-mode) .chatbot-header p {
   color: #e2e8f0 !important;
+}
+
+/* Enhanced Timeline Styles */
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-header h4 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+}
+
+.timeline-percentage {
+  font-weight: 600;
+  color: var(--primary);
+  font-size: 0.9rem;
+}
+
+.timeline-description {
+  color: var(--text-secondary);
+  margin: 0.5rem 0;
+  line-height: 1.4;
+}
+
+.timeline-actions {
+  margin-top: 1rem;
+}
+
+.timeline-marker.completed {
+  background: var(--secondary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timeline-marker.completed i {
+  font-size: 0.8rem;
+}
+
+/* Enhanced Progress Section Styles - Wider and More Spacious */
+.skill-progress-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  padding: 0;
+  overflow: hidden; /* Prevent overflow */
+}
+
+.skill-progress-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--light-gray);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  min-height: 70px;
+  width: 100%; /* Ensure it stays within container */
+  box-sizing: border-box;
+}
+
+.skill-progress-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary);
+}
+
+.skill-info {
+  min-width: 120px;
+  max-width: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex-shrink: 0; /* Prevent shrinking */
+}
+
+.skill-name {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.skill-level {
+  font-size: 0.8rem;
+  color: var(--secondary);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 10px;
+  background: var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  min-width: 0; /* Allow shrinking */
+  max-width: 100%; /* Prevent overflow */
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  border-radius: 6px;
+  transition: width 0.8s ease-in-out;
+  position: relative;
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.progress-percentage {
+  min-width: 60px;
+  text-align: right;
+  font-weight: 600;
+  color: var(--primary);
+  font-size: 0.9rem;
+  padding: 0.25rem 0.5rem;
+  background: var(--widget-background);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  flex-shrink: 0; /* Prevent shrinking */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .skill-progress-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem;
+  }
+  
+  .skill-info {
+    min-width: auto;
+    max-width: none;
+    width: 100%;
+  }
+  
+  .progress-bar {
+    width: 100%;
+    min-width: auto;
+  }
+  
+  .progress-percentage {
+    align-self: flex-end;
+  }
+}
+
+@media (min-width: 1200px) {
+  .skill-progress-item {
+    padding: 1.25rem;
+    gap: 1.5rem;
+  }
+  
+  .skill-info {
+    min-width: 140px;
+    max-width: 180px;
+  }
 }
