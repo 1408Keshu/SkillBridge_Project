@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 const Projects = ({ careerPath }) => {
   const [showDetails, setShowDetails] = useState(null);
+  const [difficultyFilter, setDifficultyFilter] = useState('All');
 
   const fullStackProjects = [
     {
@@ -345,8 +346,12 @@ const Projects = ({ careerPath }) => {
     setShowDetails(showDetails === index ? null : index);
   };
 
-  const renderProjects = (projects) =>
-    projects.map((project, index) => (
+  const renderProjects = (projects) => {
+    const filteredProjects = projects.filter(project => 
+      difficultyFilter === 'All' || project.status === difficultyFilter
+    );
+    
+    return filteredProjects.map((project, index) => (
             <div key={index} className="project-card">
               <div className="project-header">
                 <h4>{project.title}</h4>
@@ -404,6 +409,7 @@ const Projects = ({ careerPath }) => {
         )}
               </div>
     ));
+  };
 
   return (
     <div className="page active">
@@ -415,7 +421,19 @@ const Projects = ({ careerPath }) => {
       <div className="widget">
         <div className="widget-header">
           <h3 className="widget-title">Recommended Projects for {careerPath}</h3>
-            </div>
+          <div className="filter-container">
+            <select 
+              value={difficultyFilter} 
+              onChange={(e) => setDifficultyFilter(e.target.value)}
+              className="difficulty-filter"
+            >
+              <option value="All">All Difficulties</option>
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Advanced">Advanced</option>
+            </select>
+          </div>
+        </div>
         <div className="projects-grid">
           {careerPath === 'Full-Stack Developer'
             ? renderProjects(fullStackProjects)
