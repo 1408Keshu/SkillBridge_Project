@@ -431,12 +431,12 @@ const Dashboard = () => {
                 <button className="step-btn secondary" onClick={resetDashboard}>
                   <i className="fas fa-refresh"></i> Reset Demo
                 </button>
-                <button className="step-btn secondary" onClick={handleRefreshResources}>
+                {/* <button className="step-btn secondary" onClick={handleRefreshResources}>
                   <i className="fas fa-sync-alt"></i> Refresh Resources
-                </button>
-                <button className="step-btn primary" onClick={() => alert('Exporting PDF... (This is a demo)')}>
+                </button> */}
+                {/* <button className="step-btn primary" onClick={() => alert('Exporting PDF... (This is a demo)')}>
                   <i className="fas fa-download"></i> Export PDF
-                </button>
+                </button> */}
               </div>
             </header>
 
