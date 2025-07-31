@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTheme } from '../../hooks/useTheme';
 
+const API_URL = import.meta.env.VITE_API_URL; // <-- Add this line
+
 const Dashboard = () => {
   const { token, userEmail, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
@@ -141,7 +143,7 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         // Fetch roadmap
-        const roadmapRes = await fetch('http://localhost:5000/api/roadmap', {
+        const roadmapRes = await fetch(`${API_URL}/api/roadmap`, { // <-- Use API_URL
           headers: { 'Authorization': `Bearer ${token}` }
         });
         const roadmapData = await roadmapRes.json();
@@ -149,7 +151,7 @@ const Dashboard = () => {
           setRoadmapSteps(roadmapData.roadmap.steps);
         }
         // Fetch progress
-        const progressRes = await fetch('http://localhost:5000/api/progress', {
+        const progressRes = await fetch(`${API_URL}/api/progress`, { // <-- Use API_URL
           headers: { 'Authorization': `Bearer ${token}` }
         });
         const progressData = await progressRes.json();

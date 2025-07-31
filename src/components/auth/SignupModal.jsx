@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL; // Add this line
+
 const SignupModal = ({ isOpen, onClose, onSwitchToLogin }) => {
   const [formData, setFormData] = useState({
     name: '',
@@ -17,7 +19,7 @@ const SignupModal = ({ isOpen, onClose, onSwitchToLogin }) => {
     setError('');
     setSuccess('');
     try {
-      await axios.post('http://localhost:5000/api/auth/register', formData);
+      await axios.post(`${API_URL}/api/auth/register`, formData); // Use API_URL here
       localStorage.setItem('userName', formData.name); // Store the name
       setSuccess('Account created successfully! Please login with your credentials.');
       setLoading(false);

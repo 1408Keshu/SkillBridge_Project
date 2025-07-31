@@ -19,6 +19,8 @@ function getUniqueStepName(base, usedNames, fallback) {
   return name;
 }
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const Roadmap = ({ completedSteps, setCompletedSteps }) => {
   const { token } = useAuth();
   const [form, setForm] = useState({
@@ -42,7 +44,7 @@ const Roadmap = ({ completedSteps, setCompletedSteps }) => {
     const fetchRoadmap = async () => {
       if (!token) return;
       try {
-        const res = await fetch('http://localhost:5000/api/roadmap', {
+        const res = await fetch(`${API_URL}/api/roadmap`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         const data = await res.json();
@@ -154,7 +156,7 @@ const Roadmap = ({ completedSteps, setCompletedSteps }) => {
         setRoadmapSteps(steps);
         // Save to backend
         if (token) {
-          await fetch('http://localhost:5000/api/roadmap', {
+          await fetch(`${API_URL}/api/roadmap`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

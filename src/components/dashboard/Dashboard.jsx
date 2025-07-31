@@ -8,6 +8,8 @@ import Progress from './Progress';
 import InterviewPrep from './InterviewPrep';
 import Settings from './Settings';
 
+const API_URL = import.meta.env.VITE_API_URL; // <-- Add this line
+
 function formatAiResponse(text) {
   if (!text || text.split(' ').length <= 20) return text;
 
@@ -68,7 +70,7 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         // Fetch roadmap
-        const roadmapRes = await fetch('http://localhost:5000/api/roadmap', {
+        const roadmapRes = await fetch(`${API_URL}/api/roadmap`, { // <-- Use API_URL
           headers: { 'Authorization': `Bearer ${token}` }
         });
         const roadmapData = await roadmapRes.json();
@@ -80,7 +82,7 @@ const Dashboard = () => {
           setUserSkills([]);
         }
         // Fetch progress
-        const progressRes = await fetch('http://localhost:5000/api/progress', {
+        const progressRes = await fetch(`${API_URL}/api/progress`, { // <-- Use API_URL
           headers: { 'Authorization': `Bearer ${token}` }
         });
         const progressData = await progressRes.json();
@@ -273,23 +275,22 @@ const Dashboard = () => {
   };
 
   const resetDashboard = async () => {
-    // Keep profile info (userName, careerPath, userEmail) but reset all progress/roadmap data
     setUserSkills([]);
     setCompletedSteps(new Set());
-    // setRoadmapSteps(skills2025.filter(step => step.careerPaths?.includes(careerPath))); // <-- FIXED
+    // setRoadmapSteps(skills2025.filter(step => step.careerPaths?.includes(careerPath)));
     // setResources([]);
     
     // Reset backend data if user is logged in
     if (token) {
       try {
         // Reset roadmap to empty
-        await fetch('http://localhost:5000/api/roadmap', {
+        await fetch(`${API_URL}/api/roadmap`, { // <-- Use API_URL
           method: 'DELETE',
           headers: { 'Authorization': `Bearer ${token}` }
         });
         
         // Reset progress to empty
-        await fetch('http://localhost:5000/api/progress', {
+        await fetch(`${API_URL}/api/progress`, { // <-- Use API_URL
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
