@@ -51,7 +51,7 @@ const Projects = ({ careerPath }) => {
       duration: '3-4 weeks',
       skills: ['Socket.io', 'Node.js', 'MongoDB'],
       status: 'Intermediate',
-      youtube: 'https://youtu.be/jD7FnbI76Hg?si=QkTSnerRmHzStMm4',
+      youtube: 'https://www.youtube.com/watch?v=jD7FnbI76Hg',
       references: [
         { label: 'Socket.io Docs', url: 'https://socket.io/docs/v4/' },
       ],
@@ -69,7 +69,7 @@ const Projects = ({ careerPath }) => {
       duration: '3-4 weeks',
       skills: ['React', 'Node.js', 'Chart.js'],
       status: 'Intermediate',
-      youtube: 'https://youtu.be/3PHXvlpOkf4?si=8BqXqXqXqXqXqXqX',
+      youtube: 'https://youtu.be/_W3R2VwRyF4?si=UiK7J0p6NFqOafaU',
       references: [
         { label: 'Chart.js Docs', url: 'https://www.chartjs.org/docs/' },
         { label: 'Social Media APIs', url: 'https://developer.twitter.com/en/docs' },
@@ -88,7 +88,7 @@ const Projects = ({ careerPath }) => {
       duration: '2-3 weeks',
       skills: ['React', 'OpenWeather API', 'Leaflet Maps'],
       status: 'Beginner',
-      youtube: 'https://youtu.be/GuA7_Z5KvG8?si=QkTSnerRmHzStMm4',
+      youtube: 'https://youtu.be/Kdg5wx02wdQ?si=TdnYUiBIzr7w41ld',
       references: [
         { label: 'OpenWeather API', url: 'https://openweathermap.org/api' },
         { label: 'Leaflet Maps', url: 'https://leafletjs.com/' },
@@ -107,7 +107,7 @@ const Projects = ({ careerPath }) => {
       duration: '3-4 weeks',
       skills: ['React', 'Node.js', 'Cloudinary'],
       status: 'Intermediate',
-      youtube: 'https://youtu.be/1OfFS0v0F1M?si=QkTSnerRmHzStMm4',
+      youtube: 'https://youtu.be/JU6Bxdu0nrw?si=kLc29J5GrILE7QUG',
       references: [
         { label: 'Cloudinary Docs', url: 'https://cloudinary.com/documentation' },
         { label: 'Multer Middleware', url: 'https://github.com/expressjs/multer' },
@@ -126,7 +126,7 @@ const Projects = ({ careerPath }) => {
       duration: '4-5 weeks',
       skills: ['React', 'Node.js', 'Email Service'],
       status: 'Advanced',
-      youtube: 'https://youtu.be/7CqJlxBYj-M?si=QkTSnerRmHzStMm4',
+      youtube: 'https://youtu.be/CFlX-NWIULo?si=ZjBqyIQ3EN0FqFrI',
       references: [
         { label: 'Nodemailer', url: 'https://nodemailer.com/' },
         { label: 'PDF Generation', url: 'https://www.npmjs.com/package/pdfkit' },
@@ -145,7 +145,7 @@ const Projects = ({ careerPath }) => {
       duration: '3-4 weeks',
       skills: ['React', 'Node.js', 'Rich Text Editor'],
       status: 'Intermediate',
-      youtube: 'https://youtu.be/7CqJlxBYj-M?si=QkTSnerRmHzStMm4',
+      youtube: 'https://youtu.be/J7BGuuuvDDk?si=L99h42T8FVQwD_RI',
       references: [
         { label: 'Draft.js', url: 'https://draftjs.org/' },
         { label: 'SEO Best Practices', url: 'https://developers.google.com/search/docs' },
@@ -164,7 +164,7 @@ const Projects = ({ careerPath }) => {
       duration: '1-2 weeks',
       skills: ['React', 'Framer Motion', 'Three.js'],
       status: 'Beginner',
-      youtube: 'https://youtu.be/7CqJlxBYj-M?si=QkTSnerRmHzStMm4',
+      youtube: 'https://youtu.be/S9UQItTpwUQ?si=s2o1ouhq4W_CsAch',
       references: [
         { label: 'Framer Motion', url: 'https://www.framer.com/motion/' },
         { label: 'Three.js', url: 'https://threejs.org/' },
@@ -183,7 +183,7 @@ const Projects = ({ careerPath }) => {
       duration: '5-6 weeks',
       skills: ['Docker', 'Kubernetes', 'Redis'],
       status: 'Advanced',
-      youtube: 'https://youtu.be/7CqJlxBYj-M?si=QkTSnerRmHzStMm4',
+      youtube: 'https://youtu.be/4qyBjxPlEZo?si=lV44sbF4Zqjf1Ba2',
       references: [
         { label: 'Docker Docs', url: 'https://docs.docker.com/' },
         { label: 'Kubernetes', url: 'https://kubernetes.io/docs/' },
@@ -243,7 +243,7 @@ const Projects = ({ careerPath }) => {
           duration: '3-4 weeks',
           skills: ['Python', 'LSTM', 'Yahoo Finance API'],
           status: 'Intermediate',
-          youtube: 'https://youtu.be/7CqJlxBYj-M?si=QkTSnerRmHzStMm4',
+          youtube: 'https://www.youtube.com/watch?v=QIUxPv5PJOY',
           references: [
             { label: 'TensorFlow Time Series', url: 'https://www.tensorflow.org/tutorials/structured_data/time_series' },
             { label: 'Yahoo Finance API', url: 'https://pypi.org/project/yfinance/' },
@@ -262,7 +262,7 @@ const Projects = ({ careerPath }) => {
           duration: '2-3 weeks',
           skills: ['Python', 'K-means', 'Scikit-learn'],
           status: 'Beginner',
-          youtube: 'https://youtu.be/7CqJlxBYj-M?si=QkTSnerRmHzStMm4',
+          youtube: 'https://www.youtube.com/watch?v=4sZFkPw87ng',
           references: [
             { label: 'Scikit-learn Clustering', url: 'https://scikit-learn.org/stable/modules/clustering.html' },
             { label: 'K-means Algorithm', url: 'https://en.wikipedia.org/wiki/K-means_clustering' },
@@ -281,7 +281,7 @@ const Projects = ({ careerPath }) => {
           duration: '3-4 weeks',
           skills: ['Python', 'NLTK', 'Transformers'],
           status: 'Intermediate',
-          youtube: 'https://youtu.be/7CqJlxBYj-M?si=QkTSnerRmHzStMm4',
+          youtube: 'https://www.youtube.com/watch?v=FLZvOKSCkxY',
           references: [
             { label: 'NLTK Documentation', url: 'https://www.nltk.org/' },
             { label: 'Hugging Face Transformers', url: 'https://huggingface.co/transformers/' },
@@ -300,7 +300,7 @@ const Projects = ({ careerPath }) => {
           duration: '4-5 weeks',
           skills: ['Python', 'Prophet', 'Streamlit'],
           status: 'Advanced',
-          youtube: 'https://youtu.be/7CqJlxBYj-M?si=QkTSnerRmHzStMm4',
+          youtube: 'https://www.youtube.com/watch?v=eyEabQRBMQA',
           references: [
             { label: 'Facebook Prophet', url: 'https://facebook.github.io/prophet/' },
             { label: 'Streamlit', url: 'https://streamlit.io/' },
@@ -319,7 +319,7 @@ const Projects = ({ careerPath }) => {
           duration: '3-4 weeks',
           skills: ['Python', 'Apache Airflow', 'PostgreSQL'],
           status: 'Intermediate',
-          youtube: 'https://youtu.be/7CqJlxBYj-M?si=QkTSnerRmHzStMm4',
+          youtube: 'https://www.youtube.com/watch?v=9gBC9R-msAk',
           references: [
             { label: 'Apache Airflow', url: 'https://airflow.apache.org/' },
             { label: 'PostgreSQL', url: 'https://www.postgresql.org/docs/' },
@@ -338,7 +338,7 @@ const Projects = ({ careerPath }) => {
           duration: '2-3 weeks',
           skills: ['Python', 'Statistics', 'Hypothesis Testing'],
           status: 'Beginner',
-          youtube: 'https://youtu.be/7CqJlxBYj-M?si=QkTSnerRmHzStMm4',
+          youtube: 'https://youtu.be/iCj4lT5KvJk?si=osD8Vm81DtNiKq-4',
           references: [
             { label: 'SciPy Statistics', url: 'https://docs.scipy.org/doc/scipy/reference/stats.html' },
             { label: 'A/B Testing Guide', url: 'https://www.optimizely.com/optimization-glossary/ab-testing/' },
@@ -357,7 +357,7 @@ const Projects = ({ careerPath }) => {
           duration: '4-5 weeks',
           skills: ['Python', 'TensorFlow', 'Computer Vision'],
           status: 'Advanced',
-          youtube: 'https://youtu.be/7CqJlxBYj-M?si=QkTSnerRmHzStMm4',
+          youtube: 'https://www.youtube.com/watch?v=V61xy1ZnVTM',
           references: [
             { label: 'TensorFlow Tutorials', url: 'https://www.tensorflow.org/tutorials' },
             { label: 'OpenCV', url: 'https://opencv.org/' },
@@ -376,7 +376,7 @@ const Projects = ({ careerPath }) => {
           duration: '3-4 weeks',
           skills: ['Python', 'Kafka', 'Elasticsearch'],
           status: 'Advanced',
-          youtube: 'https://youtu.be/7CqJlxBYj-M?si=QkTSnerRmHzStMm4',
+          youtube: 'https://youtu.be/6a3Dz8gwjdg?si=6soJ37EgtYBefCye',
           references: [
             { label: 'Apache Kafka', url: 'https://kafka.apache.org/documentation/' },
             { label: 'Elasticsearch', url: 'https://www.elastic.co/guide/index.html' },

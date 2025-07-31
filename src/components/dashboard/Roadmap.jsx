@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { useAuth } from '../../contexts/AuthContext';
 
 const knowledgeLevels = [
   { value: 'beginner', label: 'Beginner' },
@@ -19,6 +20,7 @@ function getUniqueStepName(base, usedNames, fallback) {
 }
 
 const Roadmap = ({ completedSteps, setCompletedSteps }) => {
+  const { token } = useAuth();
   const [form, setForm] = useState({
     duration: 12,
     dreamGoal: '',
@@ -35,19 +37,37 @@ const Roadmap = ({ completedSteps, setCompletedSteps }) => {
   const [renderError, setRenderError] = useState(null);
   const [showForm, setShowForm] = useState(true);
 
-  // Load roadmap from localStorage on mount
+  // Load roadmap from backend on mount
   useEffect(() => {
-    const savedRoadmap = localStorage.getItem('roadmapSteps');
-    if (savedRoadmap) {
+    const fetchRoadmap = async () => {
+      if (!token) return;
       try {
-        const parsed = JSON.parse(savedRoadmap);
-        if (Array.isArray(parsed)) {
-          setRoadmapSteps(parsed);
+        const res = await fetch('http://localhost:5000/api/roadmap', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+        if (data.roadmap && Array.isArray(data.roadmap.steps) && data.roadmap.steps.length > 0) {
+          setRoadmapSteps(data.roadmap.steps);
+          setForm(f => ({
+            ...f,
+            dreamGoal: data.roadmap.dreamGoal || '',
+            duration: data.roadmap.duration || 12,
+            knowledgeLevel: data.roadmap.knowledgeLevel || '',
+            knowledgeDetails: data.roadmap.knowledgeDetails || '',
+            dailyTime: data.roadmap.dailyTime || 2
+          }));
           setShowForm(false);
+        } else {
+          setShowForm(true); // <-- Always show form if no steps
+          setRoadmapSteps([]);
         }
-      } catch {}
-    }
-  }, []);
+      } catch (err) {
+        setShowForm(true); // <-- Show form on error
+        setRoadmapSteps([]);
+      }
+    };
+    fetchRoadmap();
+  }, [token]);
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -88,8 +108,7 @@ const Roadmap = ({ completedSteps, setCompletedSteps }) => {
     setRoadmapSteps([]);
     setCompletedSteps(new Set());
     setShowForm(false);
-    localStorage.removeItem('roadmapSteps');
-    const promptText = `Create a personalized week-by-week learning roadmap based on the following user input:\n\n- Dream Goal: ${form.dreamGoal}\n- Duration: ${form.duration} weeks\n- Daily Learning Time: ${form.dailyTime} hours/day\n\n### Instructions:\nFor each week, include:\n1. **Main Focus Topics**: List 3-4 core concepts or skills (as an array of strings) for that week.\n2. **Recommended Resources**: Provide 2-3 learning resources as an array of objects, each with a 'name' (what to learn from this resource) and a 'url' (the link).\n3. **Weekly Task**: A small hands-on task or milestone that reinforces the learning.\n4. Keep content structured and formatted for use in JSON, like this:\n\n{\n  "weeks": [\n    {\n      "week": 1,\n      "mainFocusTopics": ["Introduction to React", "JSX Basics", "Component Structure"],\n      "resources": [\n        { "name": "React Official Hello World Guide", "url": "https://reactjs.org/docs/hello-world.html" },\n        { "name": "React JS Crash Course (YouTube)", "url": "https://www.youtube.com/watch?v=dGcsHMXbSOA" }\n      ],\n      "weeklyTask": "Create a simple React webpage that displays your name and changes color on button click."\n    }\n  ]\n}\n\nEnsure clarity, progression, and real-world skills. Make it beginner-friendly but scalable to goal.\nRespond ONLY in JSON format.`;
+    const promptText = `Create a personalized week-by-week learning roadmap based on the following user input:\n\n- Dream Goal: ${form.dreamGoal}\n- Duration: ${form.duration} weeks\n- Daily Learning Time: ${form.dailyTime} hours/day\n\n### Instructions:\nFor each week, include:\n1. **Main Focus Topics**: List 3-4 core concepts or skills (as an array of strings) for that week.\n2. **Recommended Resources**: Provide 2-3 learning resources as an array of objects, each with a 'name' (what to learn from this resource) and a 'url' (the link).\n3. **Weekly Task**: A small hands-on task or milestone that reinforces the learning.\n4. Keep content structured and formatted for use in JSON, like this:\n\n{\n  \"weeks\": [\n    {\n      \"week\": 1,\n      \"mainFocusTopics\": [\"Introduction to React\", \"JSX Basics\", \"Component Structure\"],\n      \"resources\": [\n        { \"name\": \"React Official Hello World Guide\", \"url\": \"https://reactjs.org/docs/hello-world.html\" },\n        { \"name\": \"React JS Crash Course (YouTube)\", \"url\": \"https://www.youtube.com/watch?v=dGcsHMXbSOA\" }\n      ],\n      \"weeklyTask\": \"Create a simple React webpage that displays your name and changes color on button click.\"\n    }\n  ]\n}\n\nEnsure clarity, progression, and real-world skills. Make it beginner-friendly but scalable to goal.\nRespond ONLY in JSON format.`;
     try {
       const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + key, {
         method: 'POST',
@@ -133,14 +152,32 @@ const Roadmap = ({ completedSteps, setCompletedSteps }) => {
           resources: Array.isArray(week.resources) ? week.resources : [],
         }));
         setRoadmapSteps(steps);
-        localStorage.setItem('roadmapSteps', JSON.stringify(steps));
+        // Save to backend
+        if (token) {
+          await fetch('http://localhost:5000/api/roadmap', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+              steps,
+              dreamGoal: form.dreamGoal,
+              duration: form.duration,
+              knowledgeLevel: form.knowledgeLevel,
+              knowledgeDetails: form.knowledgeDetails,
+              dailyTime: form.dailyTime
+            })
+          });
+        }
       } else {
         setError('Could not parse roadmap from Gemini response.');
       }
     } catch (err) {
-      setError('Failed to generate roadmap. Please check your API key and try again.');
+      setError('Error generating roadmap.');
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   // PDF Export Handler (programmatic, not screenshot)

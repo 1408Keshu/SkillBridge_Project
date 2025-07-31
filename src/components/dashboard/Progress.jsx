@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
 
 // Mock API function - replace with your actual Gemini API endpoint
 const fetchSkillsFromAPI = async (careerPath, apiKey) => {
@@ -63,11 +64,11 @@ const generateTimelineFromGeneratedRoadmap = (generatedRoadmapSteps, completedSt
 
 // Enhanced Skill Progress with dynamic updates
 const Progress = ({ completedSteps, setCompletedSteps, careerPath, roadmapSteps, timelineEvents = [] }) => {
+  const { token } = useAuth();
   const [skills, setSkills] = useState([]);
   const [loading, setLoading] = useState(false);
   const [animatedSkills, setAnimatedSkills] = useState(new Set());
   const [timelineData, setTimelineData] = useState([]);
-  const [generatedRoadmapSteps, setGeneratedRoadmapSteps] = useState([]);
   
   const completedCount = completedSteps ? completedSteps.size : 0;
 
@@ -83,20 +84,44 @@ const Progress = ({ completedSteps, setCompletedSteps, careerPath, roadmapSteps,
     }
   };
 
-  // Load generated roadmap from localStorage
+  // Load progress from backend on mount
   useEffect(() => {
-    const savedRoadmap = localStorage.getItem('roadmapSteps');
-    if (savedRoadmap) {
+    const fetchProgress = async () => {
+      if (!token) return;
       try {
-        const parsed = JSON.parse(savedRoadmap);
-        if (Array.isArray(parsed)) {
-          setGeneratedRoadmapSteps(parsed);
+        const res = await fetch('http://localhost:5000/api/progress', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+        if (data.progress && Array.isArray(data.progress.completedSteps)) {
+          setCompletedSteps(new Set(data.progress.completedSteps));
         }
-      } catch (error) {
-        console.error('Error loading generated roadmap:', error);
+      } catch (err) {
+        // Optionally handle error
       }
-    }
-  }, []);
+    };
+    fetchProgress();
+  }, [token, setCompletedSteps]);
+
+  // Save progress to backend whenever completedSteps changes
+  useEffect(() => {
+    if (!token || !completedSteps) return;
+    const saveProgress = async () => {
+      try {
+        await fetch('http://localhost:5000/api/progress', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ completedSteps: Array.from(completedSteps) })
+        });
+      } catch (err) {
+        // Optionally handle error
+      }
+    };
+    saveProgress();
+  }, [completedSteps, token]);
 
   // Generate dynamic skills from completed roadmap steps
   const generateDynamicSkills = (roadmapSteps, completedSteps) => {
@@ -142,15 +167,15 @@ const Progress = ({ completedSteps, setCompletedSteps, careerPath, roadmapSteps,
 
   // Update skills when roadmap or completion status changes
   useEffect(() => {
-    const dynamicSkills = generateDynamicSkills(generatedRoadmapSteps, completedSteps);
+    const dynamicSkills = generateDynamicSkills(roadmapSteps, completedSteps);
     setSkills(dynamicSkills);
-  }, [generatedRoadmapSteps, completedSteps]);
+  }, [roadmapSteps, completedSteps]);
 
   // Generate timeline from generated roadmap
   useEffect(() => {
-    const timeline = generateTimelineFromGeneratedRoadmap(generatedRoadmapSteps, completedSteps);
+    const timeline = generateTimelineFromGeneratedRoadmap(roadmapSteps, completedSteps);
     setTimelineData(timeline);
-  }, [generatedRoadmapSteps, completedSteps]);
+  }, [roadmapSteps, completedSteps]);
 
   // Trigger animations when skills update
   useEffect(() => {

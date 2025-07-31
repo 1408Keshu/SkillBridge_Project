@@ -33,7 +33,7 @@ function formatAiResponse(text) {
 }
 
 const Dashboard = () => {
-  const { userEmail, logout } = useAuth();
+  const { token, userEmail, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const [currentPage, setCurrentPage] = useState('dashboard');
   const [showProfileModal, setShowProfileModal] = useState(false);
@@ -47,16 +47,54 @@ const Dashboard = () => {
   ]);
   const [aiInput, setAiInput] = useState('');
   const [showInterviewAnswer, setShowInterviewAnswer] = useState(false);
-  const [completedSteps, setCompletedSteps] = useState(() => {
-    // Persist across reloads
-    const saved = localStorage.getItem('completedRoadmapSteps');
-    return saved ? new Set(JSON.parse(saved)) : new Set();
-  });
+  // Remove localStorage logic for completedSteps
+  // useState for completedSteps:
+  const [completedSteps, setCompletedSteps] = useState(new Set());
+  const [roadmapSteps, setRoadmapSteps] = useState([]);
+  const [roadmapResetKey, setRoadmapResetKey] = useState(0);
 
-  // Save completedSteps to localStorage when it changes
+  // Fetch roadmap/progress from backend and reset state on logout/token change
   useEffect(() => {
-    localStorage.setItem('completedRoadmapSteps', JSON.stringify(Array.from(completedSteps)));
-  }, [completedSteps]);
+    if (!token) {
+      setUserName('John Doe');
+      setCareerPath('Full-Stack Developer');
+      setUserSkills([]);
+      setCompletedSteps(new Set());
+      setResources([]);
+      setRoadmapSteps([]);
+      return;
+    }
+    // Fetch roadmap and progress from backend
+    const fetchData = async () => {
+      try {
+        // Fetch roadmap
+        const roadmapRes = await fetch('http://localhost:5000/api/roadmap', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const roadmapData = await roadmapRes.json();
+        if (roadmapData.roadmap && Array.isArray(roadmapData.roadmap.steps)) {
+          setRoadmapSteps(roadmapData.roadmap.steps);
+          setUserSkills(roadmapData.roadmap.steps.map(step => step.name));
+        } else {
+          setRoadmapSteps([]);
+          setUserSkills([]);
+        }
+        // Fetch progress
+        const progressRes = await fetch('http://localhost:5000/api/progress', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const progressData = await progressRes.json();
+        if (progressData.progress && Array.isArray(progressData.progress.completedSteps)) {
+          setCompletedSteps(new Set(progressData.progress.completedSteps));
+        } else {
+          setCompletedSteps(new Set());
+        }
+      } catch (err) {
+        // Optionally handle error
+      }
+    };
+    fetchData();
+  }, [token]);
 
   // Skill and Career Path Data
   const skills2025 = [
@@ -234,13 +272,46 @@ const Dashboard = () => {
     generateResources(careerPath);
   };
 
-  const resetDashboard = () => {
-    localStorage.clear();
-    setUserName('John Doe');
-    setCareerPath('Full-Stack Developer');
+  const resetDashboard = async () => {
+    // Keep profile info (userName, careerPath, userEmail) but reset all progress/roadmap data
     setUserSkills([]);
-    setCompletedSteps(new Set()); // Reset completed steps
-    generateResources('Full-Stack Developer');
+    setCompletedSteps(new Set());
+    // setRoadmapSteps(skills2025.filter(step => step.careerPaths?.includes(careerPath))); // <-- FIXED
+    // setResources([]);
+    
+    // Reset backend data if user is logged in
+    if (token) {
+      try {
+        // Reset roadmap to empty
+        await fetch('http://localhost:5000/api/roadmap', {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        
+        // Reset progress to empty
+        await fetch('http://localhost:5000/api/progress', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ completedSteps: [] })
+        });
+      } catch (err) {
+        console.error('Error resetting backend data:', err);
+      }
+    }
+    
+    // Reset AI messages
+    setAiMessages([
+      { text: "Hi! I'm your AI career assistant. How can I help you with your tech career journey today?", isUser: false }
+    ]);
+    setAiInput('');
+    setShowInterviewAnswer(false);
+    
+    // Navigate to roadmap page to show the input form
+    setCurrentPage('roadmap');
+    setRoadmapResetKey(prev => prev + 1); // Add this line
   };
 
   const handleLogout = () => {
@@ -332,6 +403,9 @@ const Dashboard = () => {
   };
 
   const avatarUrl = `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(userName)}`;
+
+  const currentStep = roadmapSteps.find(step => !completedSteps.has(step.name));
+  const weeklyGoal = currentStep?.description || (roadmapSteps.length > 0 ? 'All roadmap steps completed! 🎉' : 'No roadmap generated yet.');
 
   return (
     <div className="dashboard-container">
@@ -429,7 +503,7 @@ const Dashboard = () => {
                   <i className="fas fa-moon"></i>
                 </button>
                 <button className="step-btn secondary" onClick={resetDashboard}>
-                  <i className="fas fa-refresh"></i> Reset Demo
+                  <i className="fas fa-refresh"></i> Reset Progress
                 </button>
                 {/* <button className="step-btn secondary" onClick={handleRefreshResources}>
                   <i className="fas fa-sync-alt"></i> Refresh Resources
@@ -461,7 +535,7 @@ const Dashboard = () => {
                   <h3 className="widget-title">Weekly Goal</h3>
                   <div className="widget-actions"><i className="fas fa-ellipsis-h"></i></div>
                 </div>
-                <p>{careerWeeklyGoals[careerPath] || 'Set your career path to generate a weekly goal.'}</p>
+                <p>{weeklyGoal}</p>
                 <div className="progress-bar" style={{marginTop: '15px'}}>
                   <div className="progress-fill" style={{ width: `${Math.min(progressPercentage, 100)}%` }}></div>
                 </div>
@@ -536,6 +610,7 @@ const Dashboard = () => {
         {/* Feature Pages */}
         {currentPage === 'roadmap' && (
           <Roadmap
+            key={roadmapResetKey}
             completedSteps={completedSteps}
             setCompletedSteps={setCompletedSteps}
             careerPath={careerPath}
@@ -559,8 +634,9 @@ const Dashboard = () => {
         {currentPage === 'progress' && (
           <Progress
             completedSteps={completedSteps}
+            setCompletedSteps={setCompletedSteps}
             careerPath={careerPath}
-            roadmapSteps={skills2025}
+            roadmapSteps={roadmapSteps}
           />
         )}
 

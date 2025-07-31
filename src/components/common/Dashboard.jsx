@@ -3,7 +3,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useTheme } from '../../hooks/useTheme';
 
 const Dashboard = () => {
-  const { userEmail, logout } = useAuth();
+  const { token, userEmail, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const [currentPage, setCurrentPage] = useState('dashboard');
   const [showProfileModal, setShowProfileModal] = useState(false);
@@ -127,14 +127,40 @@ const Dashboard = () => {
 
   // Initialize from localStorage and setup animations
   useEffect(() => {
-    const savedName = localStorage.getItem('userName') || 'John Doe';
-    const savedCareer = localStorage.getItem('careerPath') || 'Full-Stack Developer';
-    const savedSkills = JSON.parse(localStorage.getItem('userSkills') || '[]');
-    
-    setUserName(savedName);
-    setCareerPath(savedCareer);
-    setUserSkills(savedSkills);
-    generateRoadmap(savedCareer, savedSkills);
+    if (!token) {
+      setRoadmapSteps([]);
+      setCompletedSteps(new Set());
+      setUserSkills([]);
+      setUserName('John Doe');
+      setCareerPath('Full-Stack Developer');
+      setResources([]);
+      // ...reset any other user-specific state if needed
+      return;
+    }
+    // Fetch roadmap and progress from backend
+    const fetchData = async () => {
+      try {
+        // Fetch roadmap
+        const roadmapRes = await fetch('http://localhost:5000/api/roadmap', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const roadmapData = await roadmapRes.json();
+        if (roadmapData.roadmap && Array.isArray(roadmapData.roadmap.steps)) {
+          setRoadmapSteps(roadmapData.roadmap.steps);
+        }
+        // Fetch progress
+        const progressRes = await fetch('http://localhost:5000/api/progress', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const progressData = await progressRes.json();
+        if (progressData.progress && Array.isArray(progressData.progress.completedSteps)) {
+          setCompletedSteps(new Set(progressData.progress.completedSteps));
+        }
+      } catch (err) {
+        // Optionally handle error
+      }
+    };
+    fetchData();
 
     // Initialize scroll animations
     const initializeAnimations = () => {
@@ -161,7 +187,7 @@ const Dashboard = () => {
 
     const observer = initializeAnimations();
     return () => observer?.disconnect();
-  }, []);
+  }, [token]);
 
   // Re-trigger animations when switching between pages
   useEffect(() => {
