@@ -1,4 +1,4 @@
-# 🚀 SkillBridge - AI-Powered Career Roadmap Platform
+# SkillBridge - AI-Powered Career Roadmap Platform
 
 <div align="center">
 
