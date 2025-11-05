@@ -18,6 +18,13 @@ export const useTheme = () => {
       document.body.classList.add('light-mode');
     }
     
+    // Update favicon to use SkillBridgeLogo.png
+    const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+    link.type = 'image/png';
+    link.rel = 'shortcut icon';
+    link.href = '/SkillBridgeLogo.png';
+    document.getElementsByTagName('head')[0].appendChild(link);
+    
     // Save theme to localStorage
     localStorage.setItem('theme', theme);
   }, [theme]);

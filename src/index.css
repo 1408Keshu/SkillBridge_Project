@@ -187,9 +187,9 @@ body.light-mode .top-nav {
 
 .logo-image {
   height: 50px;
-  width: 50px;
+  width: 100%;
   margin-right: 8px;
-  border-radius: 60%;
+  
   object-fit: contain;
   vertical-align: middle;
 }

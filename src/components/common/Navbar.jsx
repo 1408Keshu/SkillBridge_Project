@@ -14,8 +14,12 @@ const Header = ({ onLoginClick, onSignupClick }) => {
   return (
     <header className="top-nav">
       <Link to="/" className="logo">
-        <img src="/logo.png" alt="SkillBridge Logo" className="logo-image" 
-        />SkillBridge
+        <img 
+          src={theme === 'light' ? '/light.png' : '/darkLogo.png'} 
+          alt="SkillBridge Logo" 
+          className="logo-image" 
+        />
+      
       </Link>
 
 
