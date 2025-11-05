@@ -1,13 +1,30 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTheme } from '../../hooks/useTheme';
 
 const Header = ({ onLoginClick, onSignupClick }) => {
   const { theme, toggleTheme } = useTheme();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleFeaturesClick = (e) => {
+    e.preventDefault();
+    if (location.pathname === '/') {
+      // If already on landing page, just scroll
+      scrollToSection('features');
+    } else {
+      // If on another page, navigate to landing page with hash
+      navigate('/#features');
+      // Use a longer timeout to ensure page is loaded
+      setTimeout(() => {
+        scrollToSection('features');
+      }, 200);
     }
   };
 
@@ -24,7 +41,7 @@ const Header = ({ onLoginClick, onSignupClick }) => {
 
 
       <nav>
-        <a href="#features" onClick={(e) => { e.preventDefault(); scrollToSection('features'); }} className="nav-link">Features</a>
+        <a href="#features" onClick={handleFeaturesClick} className="nav-link">Features</a>
         <a href="#how-it-works" onClick={(e) => { e.preventDefault(); scrollToSection('how-it-works'); }} className="nav-link">How It Works</a>
         <Link to="/contact">Contact</Link>
       </nav>

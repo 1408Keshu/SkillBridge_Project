@@ -1,17 +1,57 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import emailjs from '@emailjs/browser';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    subject: '',
     message: ''
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState({ type: '', message: '' });
 
-  const handleSubmit = (e) => {
+  // EmailJS configuration
+  // You'll need to get these from your EmailJS account (https://www.emailjs.com/)
+  const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID'; // Replace with your EmailJS Service ID
+  const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID'; // Replace with your EmailJS Template ID
+  const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY'; // Replace with your EmailJS Public Key
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert('Message sent! (This is a demo)');
-    setFormData({ name: '', email: '', message: '' });
+    setIsLoading(true);
+    setSubmitStatus({ type: '', message: '' });
+
+    try {
+      // Send email using EmailJS
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          to_email: 'korplz1408@gmail.com', // Your email address
+        },
+        EMAILJS_PUBLIC_KEY
+      );
+
+      setSubmitStatus({ 
+        type: 'success', 
+        message: 'Thank you for reaching out! We\'ll get back to you within 24 hours.' 
+      });
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      setSubmitStatus({ 
+        type: 'error', 
+        message: 'Failed to send message. Please try again or email us directly at korplz1408@gmail.com' 
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -60,6 +100,19 @@ const ContactPage = () => {
             </div>
             
             <div className="form-group">
+              <label htmlFor="contactSubject">Subject</label>
+              <input
+                type="text"
+                id="contactSubject"
+                name="subject"
+                value={formData.subject}
+                onChange={handleChange}
+                placeholder="What's this about?"
+                required
+              />
+            </div>
+            
+            <div className="form-group">
               <label htmlFor="contactMessage">Message</label>
               <textarea
                 id="contactMessage"
@@ -71,8 +124,27 @@ const ContactPage = () => {
               />
             </div>
             
-            <button type="submit" className="btn btn-primary submit-btn">
-              Send Message
+            {submitStatus.message && (
+              <div className={`submit-status ${submitStatus.type}`}>
+                <i className={`fas ${submitStatus.type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}`}></i>
+                <span>{submitStatus.message}</span>
+              </div>
+            )}
+            
+            <button 
+              type="submit" 
+              className="btn btn-primary submit-btn"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <>
+                  <i className="fas fa-spinner fa-spin"></i> Sending...
+                </>
+              ) : (
+                <>
+                  <i className="fas fa-paper-plane"></i> Send Message
+                </>
+              )}
             </button>
           </form>
           
@@ -81,22 +153,29 @@ const ContactPage = () => {
             
             <div className="contact-info-item">
               <i className="fas fa-envelope"></i>
-              <a href="mailto:hello@skillbridge.ai">hello@skillbridge.ai</a>
+              <a href="mailto:korplz1408@gmail.com">korplz1408@gmail.com</a>
+            </div>
+            
+            <div className="contact-info-item">
+              <i className="fas fa-phone"></i>
+              <a href="tel:+15551234567">+1 (555) 123-4567</a>
             </div>
             
             <div className="contact-info-item">
               <i className="fas fa-map-marker-alt"></i>
-              <span>Silicon Valley, California</span>
+              <span>Gurgaon, Haryana</span>
+            </div>
+            
+            <div className="contact-info-item">
+              <i className="fas fa-clock"></i>
+              <span>Mon-Fri: 9AM-6PM PST</span>
             </div>
             
             <div className="contact-socials">
-              <a href="#" className="social-icon" aria-label="LinkedIn">
+              <a href="https://www.linkedin.com/in/keshav-chauhan-83b940296/" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="LinkedIn">
                 <i className="fab fa-linkedin-in"></i>
               </a>
-              <a href="#" className="social-icon" aria-label="Twitter">
-                <i className="fab fa-twitter"></i>
-              </a>
-              <a href="#" className="social-icon" aria-label="GitHub">
+              <a href="https://github.com/1408Keshu" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="GitHub">
                 <i className="fab fa-github"></i>
               </a>
             </div>

@@ -5,6 +5,18 @@ const LandingPage = ({ onGetStartedClick }) => {
   const heroRef = useRef(null);
 
   useEffect(() => {
+    // Handle hash navigation - scroll to section if hash exists in URL
+    const hash = window.location.hash;
+    if (hash) {
+      const sectionId = hash.substring(1); // Remove the '#' symbol
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+
     // Intersection Observer for scroll animations
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
     const observer = new IntersectionObserver((entries) => {
