@@ -1,8 +1,8 @@
-# SkillBridge - AI-Powered Career Roadmap Platform
+
 
 <div align="center">
 
-![SkillBridge Logo](public/logo.png)
+![SkillBridge Logo](public/darkLogo.png)
 
 **Unlock Your Tech Career Potential with AI-Driven Learning Paths**
 
